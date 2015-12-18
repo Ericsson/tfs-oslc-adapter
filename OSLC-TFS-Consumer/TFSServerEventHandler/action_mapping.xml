@@ -1,0 +1,78 @@
+<?xml-stylesheet type="text/xsl" href=""?>
+<!--
+Note: Testing to make the MHWeb specific actions configuration based
+-->
+<mapping>
+	<action name="Create">
+		<action name="Create" httpVerb="POST">
+			<property name="dcterms:title"/>
+			<property name="dcterms:description"/>
+			
+			<property name="ecm:currentMho" default="MR-DESIGN"/>
+			<property name="ecm:product" default="3/CAL 120 1260"/>
+			<property name="ecm:productRevision" default="R1A"/>
+			<property name="ecm:nodeProduct" default="CAL 120 2132"/>
+			<property name="ecm:nodeProductRevision" default="R2A"/>
+			<property name="ecm:impactOnISP" default="MR-DESIGN"/>
+			
+			<property name="ecm:priority"/>
+			<property name="ecm:owner"/>
+			<property name="ecm:firstTechContactInfo"/>
+			<property name="ecm:diddet"/>
+			<result name="oslc_cm:status" value="PR" />
+		</action>
+		<action name="Register" httpVerb="PUT">
+      <precondition name="oslc_cm:status" value="PR" />
+			<property name="dcterms:title"/>
+			<property name="dcterms:description"/>
+			
+			<property name="ecm:currentMho" default="MR-DESIGN"/>
+			<property name="ecm:product" default="3/CAL 120 1260"/>
+			<property name="ecm:productRevision" default="R1A"/>
+			<property name="ecm:nodeProduct" default="CAL 120 2132"/>
+			<property name="ecm:nodeProductRevision" default="R2A"/>
+			<property name="ecm:impactOnISP" default="MR-DESIGN"/>
+			
+			<property name="ecm:priority"/>
+			<property name="ecm:owner"/>
+			<property name="ecm:firstTechContactInfo"/>
+			<property name="ecm:diddet"/>
+			<result name="oslc_cm:status" value="RE" />
+		</action>
+		<action name="Assign" httpVerb="PUT">
+      <precondition name="oslc_cm:status" value="RE" />
+			<property name="dcterms:title"/>
+			<property name="dcterms:description"/>
+			
+			<property name="ecm:currentMho" default="MR-DESIGN"/>
+			<property name="ecm:product" default="3/CAL 120 1260"/>
+			<property name="ecm:productRevision" default="R1A"/>
+			<property name="ecm:nodeProduct" default="CAL 120 2132"/>
+			<property name="ecm:nodeProductRevision" default="R2A"/>
+			<property name="ecm:impactOnISP" default="MR-DESIGN"/>
+			
+			<property name="ecm:priority"/>
+			<property name="ecm:owner"/>
+			<property name="ecm:firstTechContactInfo"/>
+			<property name="ecm:diddet"/>
+			<result name="oslc_cm:status" value="AS" />
+		</action>		
+	</action>
+  <action name="Update" httpVerb="PUT">
+    <property name="dcterms:title"/>
+    <property name="dcterms:description"/>
+
+    <property name="ecm:currentMho" default="MR-DESIGN"/>
+    <property name="ecm:product" default="3/CAL 120 1260"/>
+    <property name="ecm:productRevision" default="R1A"/>
+    <property name="ecm:nodeProduct" default="CAL 120 2132"/>
+    <property name="ecm:nodeProductRevision" default="R2A"/>
+    <property name="ecm:impactOnISP" default="MR-DESIGN"/>
+
+    <property name="ecm:priority"/>
+    <property name="ecm:owner"/>
+    <property name="ecm:firstTechContactInfo"/>
+    <property name="ecm:diddet"/>
+    <result name="oslc_cm:status" value="PR" />
+  </action>
+</mapping>

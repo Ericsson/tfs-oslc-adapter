@@ -1,0 +1,74 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TFSServerEventHandler", "TFSServerEventHandler\TFSServerEventHandler.csproj", "{CD483BEE-F35D-44C9-AFF7-647F4AAEC04D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2585A403-7DB1-45B4-BC28-B7B3F5A2BE3E}"
+	ProjectSection(SolutionItems) = preProject
+		action_mapping.xml = action_mapping.xml
+		properties.xml = properties.xml
+		README.txt = README.txt
+		tfs_event_handler_source.reg = tfs_event_handler_source.reg
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OSLC4Net", "OSLC4Net", "{DCE874D0-9773-44CE-8CEF-977449A9355A}"
+	ProjectSection(SolutionItems) = preProject
+		OSLC4Net\OLSC4Net_library_023\Antlr3.Runtime.dll = OSLC4Net\OLSC4Net_library_023\Antlr3.Runtime.dll
+		OSLC4Net\OLSC4Net_library_023\DotNetOpenAuth.Core.dll = OSLC4Net\OLSC4Net_library_023\DotNetOpenAuth.Core.dll
+		OSLC4Net\OLSC4Net_library_023\DotNetOpenAuth.Core.xml = OSLC4Net\OLSC4Net_library_023\DotNetOpenAuth.Core.xml
+		OSLC4Net\OLSC4Net_library_023\DotNetOpenAuth.OAuth.Common.dll = OSLC4Net\OLSC4Net_library_023\DotNetOpenAuth.OAuth.Common.dll
+		OSLC4Net\OLSC4Net_library_023\DotNetOpenAuth.OAuth.Common.xml = OSLC4Net\OLSC4Net_library_023\DotNetOpenAuth.OAuth.Common.xml
+		OSLC4Net\OLSC4Net_library_023\DotNetOpenAuth.OAuth.Consumer.dll = OSLC4Net\OLSC4Net_library_023\DotNetOpenAuth.OAuth.Consumer.dll
+		OSLC4Net\OLSC4Net_library_023\DotNetOpenAuth.OAuth.Consumer.xml = OSLC4Net\OLSC4Net_library_023\DotNetOpenAuth.OAuth.Consumer.xml
+		OSLC4Net\OLSC4Net_library_023\DotNetOpenAuth.OAuth.dll = OSLC4Net\OLSC4Net_library_023\DotNetOpenAuth.OAuth.dll
+		OSLC4Net\OLSC4Net_library_023\DotNetOpenAuth.OAuth.xml = OSLC4Net\OLSC4Net_library_023\DotNetOpenAuth.OAuth.xml
+		OSLC4Net\OLSC4Net_library_023\dotNetRDF.dll = OSLC4Net\OLSC4Net_library_023\dotNetRDF.dll
+		OSLC4Net\OLSC4Net_library_023\dotNetRDF.xml = OSLC4Net\OLSC4Net_library_023\dotNetRDF.xml
+		OSLC4Net\OLSC4Net_library_023\log4net.dll = OSLC4Net\OLSC4Net_library_023\log4net.dll
+		OSLC4Net\OLSC4Net_library_023\log4net.xml = OSLC4Net\OLSC4Net_library_023\log4net.xml
+		OSLC4Net\OLSC4Net_library_023_snapshot.zip = OSLC4Net\OLSC4Net_library_023_snapshot.zip
+		OSLC4Net\OLSC4Net_library_023\OSLC4Net.Client.dll = OSLC4Net\OLSC4Net_library_023\OSLC4Net.Client.dll
+		OSLC4Net\OLSC4Net_library_023\OSLC4Net.Client.XML = OSLC4Net\OLSC4Net_library_023\OSLC4Net.Client.XML
+		OSLC4Net\OLSC4Net_library_023\OSLC4Net.Core.dll = OSLC4Net\OLSC4Net_library_023\OSLC4Net.Core.dll
+		OSLC4Net\OLSC4Net_library_023\OSLC4Net.Core.DotNetRdfProvider.dll = OSLC4Net\OLSC4Net_library_023\OSLC4Net.Core.DotNetRdfProvider.dll
+		OSLC4Net\OLSC4Net_library_023\OSLC4Net.Core.DotNetRdfProvider.xml = OSLC4Net\OLSC4Net_library_023\OSLC4Net.Core.DotNetRdfProvider.xml
+		OSLC4Net\OLSC4Net_library_023\OSLC4Net.Core.JsonProvider.dll = OSLC4Net\OLSC4Net_library_023\OSLC4Net.Core.JsonProvider.dll
+		OSLC4Net\OLSC4Net_library_023\OSLC4Net.Core.Query.dll = OSLC4Net\OLSC4Net_library_023\OSLC4Net.Core.Query.dll
+		OSLC4Net\OLSC4Net_library_023\OSLC4Net.Core.xml = OSLC4Net\OLSC4Net_library_023\OSLC4Net.Core.xml
+		OSLC4Net\OLSC4Net_library_023\VDS.Common.dll = OSLC4Net\OLSC4Net_library_023\VDS.Common.dll
+		OSLC4Net\OLSC4Net_library_023\VDS.Common.xml = OSLC4Net\OLSC4Net_library_023\VDS.Common.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProcessConfig", "ProcessConfig", "{673E16C5-0A2B-4E27-AFBD-4F9D87867CD0}"
+	ProjectSection(SolutionItems) = preProject
+		ProcessConfig\Bug.xml = ProcessConfig\Bug.xml
+		ProcessConfig\Bug_original.xml = ProcessConfig\Bug_original.xml
+		ProcessConfig\GlobalList.xml = ProcessConfig\GlobalList.xml
+		ProcessConfig\GlobalList_original.xml = ProcessConfig\GlobalList_original.xml
+		ProcessConfig\readme.txt = ProcessConfig\readme.txt
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TFSServerEventHandlerTest", "TFSServerEventHandlerTest\TFSServerEventHandlerTest.csproj", "{98C1F695-D637-43A4-B254-33D4C3077CAC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CD483BEE-F35D-44C9-AFF7-647F4AAEC04D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD483BEE-F35D-44C9-AFF7-647F4AAEC04D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD483BEE-F35D-44C9-AFF7-647F4AAEC04D}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{CD483BEE-F35D-44C9-AFF7-647F4AAEC04D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD483BEE-F35D-44C9-AFF7-647F4AAEC04D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98C1F695-D637-43A4-B254-33D4C3077CAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98C1F695-D637-43A4-B254-33D4C3077CAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98C1F695-D637-43A4-B254-33D4C3077CAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98C1F695-D637-43A4-B254-33D4C3077CAC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

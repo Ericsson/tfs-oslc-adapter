@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="ASCII"?>
+<oslc4j_ai:AdaptorInterface xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:oslc4j_ai="http://org.eclipse.lyo/oslc4j/adaptorInterface" xsi:schemaLocation="http://org.eclipse.lyo/oslc4j/adaptorInterface ../../org.eclipse.lyo.oslc4j.adaptormodel/model/adaptorInterface.ecore" name="TFSAdapter" javaClassBaseNamespace="com.ericsson.eif.tfs.oslc" javaFilesBasePath="/src/" jspFilesBasePath="/WebContent" javascriptFilesBasePath="/WebContent">
+  <serviceProviderCatalog title="OSLC Service Provider Catalog" description="OSLC Service Provider Catalog">
+    <publisher title="Team Foundation Server" identifier="com.ericsson.eif.tfs.cm" icon="http://open-services.net/css/images/logo-forflip.png"/>
+    <serviceProviders title="Service provider for TFS " description="Service provider for Team Foundation Server">
+      <publisher title="Eclipse Lyo" identifier="urn:oslc:ServiceProvider" icon=""/>
+      <services>
+        <domainSpecification href="platform:/resource/org.eclipse.lyo.oslc4j.adaptormodel/model/OSLCChangeManagementSpecification.xmi#//@domainSpecifications.0"/>
+        <creationFactories title="Change Request Creation Factory" label="Change Request Creation" resourceTypes="//@specification/@domainSpecifications.0/@resources.0"/>
+        <queryCapabilities title="Change Request Query Capability" label="Change Request Catalog Query" resourceTypes="//@specification/@domainSpecifications.0/@resources.0"/>
+        <selectionDialogs title="Change Request Selection Dialog" label="Change Request Selection Dialog" dialogURI="/{serviceProviderId}/tfsChangeRequests/selector" hintWidth="600" hintHeight="375" resourceTypes="//@specification/@domainSpecifications.0/@resources.0"/>
+        <creationDialogs title="Change Request Creation Dialog" label="Change Request Creation Dialog" dialogURI="/{serviceProviderId}/tfsChangeRequests/creator" hintWidth="600" hintHeight="375" resourceTypes="//@specification/@domainSpecifications.0/@resources.0"/>
+      </services>
+    </serviceProviders>
+  </serviceProviderCatalog>
+  <specification>
+    <domainSpecifications name="TFSBug" namespaceURI="http://www.microsoft.com/tfs" namespacePrefix="//@specification/@domainPrefixes.0">
+      <resources name="TFSChangeRequest" resourceProperties="//@specification/@domainSpecifications.0/@resourceProperties.0">
+        <extends href="platform:/resource/org.eclipse.lyo.oslc4j.adaptormodel/model/OSLCChangeManagementSpecification.xmi#//@domainSpecifications.0/@resources.0"/>
+      </resources>
+      <resourceProperties name="team" valueType="String"/>
+    </domainSpecifications>
+    <domainPrefixes name="tfsbug"/>
+  </specification>
+</oslc4j_ai:AdaptorInterface>

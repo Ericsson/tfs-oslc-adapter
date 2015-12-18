@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+Basically same syntax as in attribute_mapping.xml with the additional keyword:
+
+depends      Allows specifying that the given property depends on other properties to define
+             the complete mapping. Only valid for forward mapping.
+             
+E.g. three keys are required to map to a given value:
+
+(customer + site + country) maps to (customersAffected)
+
+* Unless all three keys are available, the mapping cannot be performed.
+* Mapping must be unique - if more than one result is possible, the mapping will
+  not be deterministic
+  
+In the inverse direction this works as a regular mapping.
+
+-->
+<mapping>
+	<property key="ecm:customer" value="Microsoft.VSTS.Common.CustomersAffected">
+	    <depends on="ecm:country"/>
+	    <depends on="ecm:site"/>
+    	<!-- Only inverse default since a forward default would result in always 
+		writing to the Bug -->
+
+        <default inverseValue="UNDEF"/> 
+        <map key="AMX" value="ALU-AMX"/>
+        <map key="ANTEL" value="ALU-Antel"/>
+        <map key="ATT-FTTN" value="ATT"/>
+		<map key="CENTURYLNK" value="ALU-CenturyLink"/>
+		<map key="HOL-GR" value="ALU-HOL"/>
+		<map key="HTC" value="ALU-HT"/>
+		<map key="PORTEL" value="ALU-PortugalTelecom"/>
+		<map key="PRTC" value="ALU-PRTC"/>
+		<map key="SASKTEL" value="ALU-SaskTel"/>
+		<map key="SINGTELS" value="ALU-SingTel"/>
+		<map key="VODAFONE" value="ALU-Vodafone"/>
+		<map key="WIND-IT" value="ALU-Wind"/>
+		<map key="BTGLOBAL" value="British Telecom"/>
+		<map key="DT" value="Deutsche Telekom"/>
+		<map key="RELIANCE" value="Reliance"/>
+		<map key="SWISSCOM" value="Swisscom"/>
+		<map key="TELMEX" value="TELMEX"/>
+		<map key="TELUS" value="Telus"/>
+		<map key="VIMPLE" value="Vimpelcom"/> <!-- VIMPLE typo in MHWeb?!? -->
+	</property>
+	<property key="ecm:country" value="Microsoft.VSTS.Common.CustomersAffected">
+        <depends on="ecm:customer"/>
+        <depends on="ecm:site"/>
+        <!-- Only inverse default since a forward default would result in always 
+        writing to the Bug -->
+
+        <default inverseValue="XX"/> 
+        <map key="CA" value="ALU-AMX"/>
+        <map key="UY" value="ALU-Antel"/>
+        <map key="US" value="ATT"/>
+		<map key="US" value="ALU-CenturyLink"/>
+		<map key="GR" value="ALU-HOL"/>
+		<map key="HU" value="ALU-HT"/>
+		<map key="PT" value="ALU-PortugalTelecom"/>
+		<map key="US" value="ALU-PRTC"/>
+		<map key="SG" value="ALU-SingTel"/>
+		<map key="GB" value="ALU-Vodafone"/>
+		<map key="IT" value="ALU-Wind"/>
+		<map key="GB" value="British Telecom"/>
+		<map key="DE" value="Deutsche Telekom"/>
+		<map key="IN" value="Reliance"/>
+		<map key="CH" value="Swisscom"/>
+		<map key="MX" value="TELMEX"/>
+		<map key="CA" value="Telus"/>
+		<map key="RU" value="Vimpelcom"/>
+<!-- 
+Empty entry from MTSALLST:
+		<map key="" value=""/>
+"?" entry from SASKTEL:
+		<map key="?" value="ALU-SaskTel"/>
+-->
+	</property>
+	<property key="ecm:site" value="Microsoft.VSTS.Common.CustomersAffected">
+        <depends on="ecm:country"/>
+        <depends on="ecm:customer"/>
+        <!-- Only inverse default since a forward default would result in always 
+        writing to the Bug -->
+
+        <default inverseValue="UNDEF"/>        
+        <map key="EMC" value="ALU-AMX"/>
+        <map key="MON1" value="ALU-Antel"/>
+        <map key="SAN RAMON FTTN" value="ATT"/>
+		<map key="PLANO" value="ALU-CenturyLink"/>
+		<map key="ADR-TES" value="ALU-HOL"/>
+		<map key="BEL" value="ALU-HT"/>
+		<map key="EMC" value="ALU-PortugalTelecom"/>
+		<map key="PRH" value="ALU-PRTC"/>
+		<map key="EAST" value="ALU-SaskTel"/>
+		<map key="SINGAPORE" value="ALU-SingTel"/>
+		<map key="ACTON" value="ALU-Vodafone"/>
+		<map key="ROMA" value="ALU-Wind"/>
+		<map key="STP" value="British Telecom"/>
+		<map key="BER-LOC2" value="Deutsche Telekom"/>
+		<map key="RAIPUR" value="Reliance"/>
+		<map key="BGW" value="Swisscom"/>
+		<map key="MEX" value="TELMEX"/>
+		<map key="CANADA" value="Telus"/>
+		<map key="MSC4" value="Vimpelcom"/>
+	</property>
+
+</mapping>

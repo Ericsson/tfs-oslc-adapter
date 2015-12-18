@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- NOTE: Not yet complete, testing the format based on the "PRIM Product Mapping.xslx" -->
+
+<!--
+Mapping from a PRIM Product No and R-State to a corresponding unique concept in the
+connected client (e.g. in TFS = TFS Release train).
+
+The ambition is that the file format should be non-TFS specific, so it can be used also
+in other MHWeb integrations. 
+
+The mapping is used by the TFS plugin that creates and update a corresponding TR in MHWeb
+in case the selected release maps to a PRIM product. And by the TFS OSLC Provider to map
+an incoming product to the corresponding project in TFS and release.
+
+The mapping is grouped per serviceProvider (TFS project).
+
+NOTE: This needs to be in sync with the products defined in PRIM and the releases
+defined in TFS - both the GlobalList.xml (for drop down) and the Bug.xml (for 
+definition of the mandatory attributes needed)
+
+2014-06-16: Mapping according to this specific version
+-->
+<mapping>
+    <serviceProvider name="Developed Mediaroom Project" collectionName="DefaultCollection">
+        
+        <!-- MR Client 2.0, 2.1, 2.2 & 2.3 Release Trains -->
+        <product primProdNo="CRH 109 1346" primRState="R1A" mapTo="IPTV Client 2.0" team="Client"/>
+        <product primProdNo="CRH 109 1346" primRState="R2A" mapTo="IPTV Client 2.1" team="Client"/>
+        <product primProdNo="CRH 109 1346" primRState="R3A" mapTo="IPTV Client 2.2" team="Client"/>
+        <product primProdNo="CRH 109 1346" primRState="R4A" mapTo="IPTV Client 2.3" team="Client"/>
+        
+        <!-- MR Client 2.4 Release Train -->
+        <product primProdNo="CRH 109 1346" primRState="R5A" mapTo="IPTV Client 2.4" team="Client"/>
+        <product primProdNo="CRH 109 1346" primRState="R5B" mapTo="IPTV Client 2.4.0.1" team="Client"/>
+        <product primProdNo="CRH 109 1346" primRState="R5C" mapTo="IPTV Client 2.4.1.1" team="Client"/>
+        <product primProdNo="CRH 109 1346" primRState="R5D" mapTo="IPTV Client 2.4.1.2" team="Client"/>
+        <product primProdNo="CRH 109 1346" primRState="R5E" mapTo="IPTV Client 2.4.1.2a" team="Client"/>
+        <product primProdNo="CRH 109 1346" primRState="R5F" mapTo="IPTV Client 2.4.1.2w" team="Client"/>
+        <product primProdNo="CRH 109 1346" primRState="R5G" mapTo="IPTV Client 2.4.1" team="Client"/>
+        
+        <!-- MR Server 2.1 Release Train -->
+        <product primProdNo="CRH 109 1344" primRState="R2B" mapTo="Server 2.1 - SP1" team="Server"/>
+        
+        <!-- Mediaroom Application Services 2.0 & 2.1 Release Train -->
+        <product primProdNo="CRH 109 1357" primRState="R1A" mapTo="IPTV Extended Apps 2.0" team="Application Services"/>
+        <product primProdNo="CRH 109 1357" primRState="R1B" mapTo="IPTV Extended Apps 2.0.1" team="Application Services"/>
+        <product primProdNo="CRH 109 1357" primRState="R1C" mapTo="IPTV Extended Apps 2.0.2" team="Application Services"/>
+        <product primProdNo="CRH 109 1357" primRState="R1D" mapTo="IPTV Extended Apps 2.0.3" team="Application Services"/>
+        <product primProdNo="CRH 109 1357" primRState="R2A" mapTo="IPTV Extended Apps 2.1" team="Application Services"/>
+        <product primProdNo="CRH 109 1357" primRState="R2B" mapTo="IPTV Extended Apps 2.1.1" team="Application Services"/>
+        
+        <!-- MR Server 2.0 & 2.1 Release Trains -->
+        <product primProdNo="CRH 109 1344" primRState="R2A" mapTo="Server 2.1" team="Server"/>
+        <product primProdNo="CRH 109 1344" primRState="R1E" mapTo="Server 2.0 MDS R2" team="Server"/>
+        <product primProdNo="CRH 109 1344" primRState="R1D" mapTo="Server 2.0 MDS R1" team="Server"/>
+        <product primProdNo="CRH 109 1344" primRState="R1C" mapTo="Server 2.0 - CP2" team="Server"/>
+        <product primProdNo="CRH 109 1344" primRState="R1B" mapTo="Server 2.0 - CP1" team="Server"/>
+        <product primProdNo="CRH 109 1344" primRState="R1A" mapTo="Server 2.0" team="Server"/>
+        
+    </serviceProvider>
+</mapping>

@@ -1,0 +1,336 @@
+<?xml-stylesheet type="text/xsl" href=""?>
+<!-- Mapping implemented from what is described in the "Bug-TR mapping.xslx" document
+
+Mapping of attributes for EnterpriseChangeRequest with TFS Bug/MHWeb TR. The mapping is used by the TFS Consumer (plug-in in TFS) and by the TFS OSLC Provider.
+
+The mapping is grouped per "property".
+
+A "property" entry has the following XML attributes 
+
+    key             Mandatory. This is the name of the property in the external view with format: <domainName>:<shortName>
+    value           Mandatory. This is the name of the TFS field or "calculated" fields that are used in special cases where
+                    mapping is more complicated than field-field, e.g. to get TFS user mail and signum. For a list of calculated
+                    fields, see further below.
+
+    Optional direction, this tells which direction the mapping is valid for. Possible values are:
+
+        <No value>        Default. The mapping is valid in both directions.
+        forward="true"    The mapping is valid from "key" entry to "value" entry
+        inverse="true"    The mapping is valid from "value" entry to "key" entry
+
+    forwardConstrainedBy   Optional. This tells which property in the backend system is to be used to constrain in the forward direction when a given key/value mapping is valid.
+    inverseConstrainedBy   Optional. This tells which property in the backend system is to be used to constrain in the inverse direction when a given key/value mapping is valid.
+    notifyChanged          Optional. If "true" the TFS Consumer will notify MHWeb when the property is changed (i.e. a "inverse" mapping).
+            
+
+Note that if having the direction set to forward or inverse, map entries will be valid for only that direction.
+
+Example:
+
+<property key="ecm:expectedImpactOnISP" value="Microsoft.VSTS.Common.Severity" forward="true">
+    <map key="A" value="0"/>
+    <map key="B" value="1" forward="true"/>
+    <map key="C" value="2" inverse="true"/>
+    
+Mapping will only be valid in the forward direction for A and B but not for C.
+and mapping will only be valid in the inverse direction for A and C, but not for B.
+
+
+
+A "property" entry can have the following sub entries
+
+    map               Optional. This entry will contain the mapping between actual values of the field.
+
+A "map" entry can have the following XML attributes
+
+    key               Mandatory. This is the string value (case sensitive) of the property "key" entry.
+    value             Mandatory. This is the string value (case sensitive) of the property "value" entry.
+
+    direction         Optional. This tells which direction the mapping is valid for. Possible values are:
+
+        <No value>           Default. The mapping is valid in both directions.
+        forward="true"       The mapping is valid from "key" entry to "value" entry
+        inverse="true"       The mapping is valid from "value" entry to "key" entry
+        
+    forwardWhen   Optional. The mapping is only valid when the "*When" value matches the value retrieved from the constrainedBy.
+    inverseWhen             The constraint value is read from the incoming ECR, not the Bug.
+
+    default       Optional. This is a default value for the mapping and will be used if key/value is null or not found in map.
+
+A "default" entry can have the following XML attributes
+
+    "forwardValue"            The value is used if key is null or not in map. If value = "*" the value in the ECR attribute is used.
+    "inverseValue"            The value is used if value is null or not in map. If value = "*" the value in the TFS field is used.
+
+use                 Optional. This is when mapping of the values are defined elsewhere. If this is defined the
+                    map of default entries for the property will be ignored. 
+                
+A "use" entry has the following attributes
+
+    name            "ProductMapping" - Mapping from PRIM product to TFS release
+    key             either "primProdNo" or "primRState"  
+     
+Example:
+
+<property key=" ecm:product" value=" Microsoft.VSTS.Common.Release">
+    <use name=”ProductMapping” key="primProdNo"/>
+</property>
+
+
+Calculated fields
+=================
+
+Ericsson.Defect.CurrentMHO           Used for specifying the ecm:currentMho which is currently not a separate TFS field
+Ericsson.Defect.User.Signum          Used for getting the signum (e.g. qnilkro) from the TFS user name (i.e. value of System.AssignedTo)
+Ericsson.Defect.User.DisplayName     Used for getting the display name from the TFS user name
+Ericsson.Defect.Hyperlink            To handle attachments
+Ericsson.Defect.Creator.Signum       Used for getting the signum of the creator of the Bug
+-->
+
+
+<mapping>
+    <property key="dcterms:title" value="System.Title" notifyChange="true"/>
+    <property key="dcterms:identifier" value=""/>
+    <property key="dcterms:about" value="Ericsson.Defect.Link"/>
+    <property key="ecm:priority" value="Microsoft.VSTS.Common.Priority" notifyChange="true">
+        <map key="A" value="0"/>
+        <map key="B" value="1"/>
+        <map key="C" value="2"/>
+        <map key="C" value="3" inverse="true"/>
+    </property>
+    
+<!--
+    The owner for the TR is changed as a state change, so should not have notifyChange="true" 
+    as that would propagate the change as a normal value change which will fail.
+-->
+    <property key="ecm:owner" value="Ericsson.Defect.User.Signum" forwardConstrainedBy="Ericsson.Defect.State">      
+        <default forwardValue="*" />
+        <map key="" value="Triage" forwardWhen="PR (Private),RE (Registered)"/>
+        <map key="" value="Closed" forwardWhen="FI (Finished),PO (Postponed)"/>
+    </property>   
+
+<!--
+    Note: The TFS OSLC Provider uses the following properties like this:
+        ecm:impactOnISP is only used when creating a Bug
+    	ecm:expectedImpactOnISP is only used when updating a Bug
+    These "restrictions" are implemented in TFSWorkItemFactory createWorkItem and updateWorkItem
+-->
+    <property key="ecm:impactOnISP" value="Microsoft.VSTS.Common.Severity" notifyChange="true" 
+              forwardConstrainedBy="Ericsson.Defect.State">
+        <!--  only allow update when "TR state" is "RE" (Registered) -->
+        <map key="A" value="0" forwardWhen="RE (Registered)" inverse="true"/>
+        <map key="B" value="1" forwardWhen="RE (Registered)" inverse="true"/>
+        <map key="C" value="2" forwardWhen="RE (Registered)" inverse="true"/>
+        <map key="D" value="3" forwardWhen="RE (Registered)" inverse="true"/>
+    </property>
+    <property key="ecm:expectedImpactOnISP" value="Microsoft.VSTS.Common.Severity" notifyChange="true">
+        <map key="A" value="0"/>
+        <map key="B" value="1"/>
+        <map key="C" value="2"/>
+        <map key="D" value="3"/>
+    </property>
+
+    <property key="ecm:diddet" value="Microsoft.VSTS.Common.HowFoundCategory" notifyChange="true">
+        <default inverseValue="NAP"/>        
+        <map key="K" value="Spec Review"/>
+        <map key="KB" value="Doc Review"/>
+        <map key="KC" value="Code Review"/>
+        <map key="L" value="Manual Testing"/>
+        <map key="MB" value="Deployment"/>
+        <map key="MD" value="LiveSite"/>
+        <map key="N" value="Platform Automation"/>
+        <map key="R" value="Globalization"/>
+        <map key="T" value="Customer/End User"/>
+        <map key="NAP" value="UNKNOWN"/>
+    </property>
+    <property key="dcterms:description" value="System.Description" notifyChange="true"/>
+
+<!-- 
+    Note: System.History will be sent to notebook, progressInfo and answer *depending on*
+    UC on the TFS Consumer side. TBD to define mapping syntax for describing this. 
+    Note: The System.History fields can not be made mandatory in TFS, so very common to
+    forget adding value in case of Reject or Resolve. Hence adding defaults.
+--> 
+    
+    <property key="ecm:notebook" value="System.History">
+        <default inverseValue="Rejected by development."/>   
+    </property>
+    <property key="ecm:answer" value="System.History">  
+        <default inverseValue="Answered by development."/>
+    </property>                              
+    <property key="ecm:progressInfo" value="System.History" notifyChange="true"/>
+    
+    <property key="ecm:answerCode" value="Microsoft.VSTS.Common.SubState"
+        forwardConstrainedBy="Ericsson.Defect.State" inverseConstrainedBy="System.State" notifyChange="true"> 
+
+        <default forwardValue=""/>
+        <!-- System.State: Active -->
+        <map key="A1"  value="Fix Built" forwardWhen="RE (Registered),AS (Assigned),PP (Proposed)" inverseWhen="Active"/>
+        <map key="A7"  value="Fix Ready/Tested" forwardWhen="RE (Registered),AS (Assigned),PP (Proposed)" inverseWhen="Active"/>
+        <map key="B1"  value="Bug Understood" forwardWhen="RE (Registered),AS (Assigned),PP (Proposed)" inverseWhen="Active"/>
+        <map key="B18" value="Fix in Progress" forwardWhen="RE (Registered),AS (Assigned),PP (Proposed)" inverseWhen="Active"/>
+        <map key="D2"  value="Needs More Information" forwardWhen="RE (Registered),AS (Assigned),PP (Proposed)" inverseWhen="Active"/>
+        <map key="D2"  value="Investigating" inverseWhen="Active"/>
+        <map key="D5"  value="Blocked" forwardWhen="RE (Registered),AS (Assigned),PP (Proposed)" inverseWhen="Active"/>
+        
+<!--
+        If not adding the mappings below, selecting the values in TR will not map to Bug which might be fine.
+        The Bug will just have unassigned value, until e.g. TR transition to TA and mapping below kicks in. 
+        
+        <map key="D1"  value="Bug Understood" forwardWhen="RE (Registered),AS (Assigned),PP (Proposed)"/>
+        <map key="B2"  value="Fix Built" forwardWhen="RE (Registered),AS (Assigned),PP (Proposed)"/>
+        <map key="D4"  value="Investigating" forwardWhen="RE (Registered),AS (Assigned),PP (Proposed)"/>
+-->
+        
+        <!-- System.State: Resolved -->
+        <map key="B2"  value="Fixed" forwardWhen="TA (Technical Answer Provided)" inverseWhen="Resolved"/>
+        <map key="D1"  value="By Design" forwardWhen="TA (Technical Answer Provided)" inverseWhen="Resolved"/>
+        <map key="D2"  value="Not Repro" forwardWhen="TA (Technical Answer Provided)" inverseWhen="Resolved"/>
+        <map key="D2"  value="Needs Info" inverseWhen="Resolved"/>    
+        <map key="D4"  value="Postponed" forwardWhen="TA (Technical Answer Provided)" inverseWhen="Resolved"/>
+        <map key="D5"  value="Won't Fix" forwardWhen="TA (Technical Answer Provided)" inverseWhen="Resolved"/>
+
+        <!-- Needed to map codes to existing values when TR goes to TA = Bug to Resolved. -->         
+        <map key="B18" value="Fixed" forwardWhen="TA (Technical Answer Provided)"/>
+        <map key="A1"  value="Fixed" forwardWhen="TA (Technical Answer Provided)"/>
+        <map key="A7"  value="Fixed" forwardWhen="TA (Technical Answer Provided)"/>
+        <map key="B1"  value="Fixed" forwardWhen="TA (Technical Answer Provided)"/>
+            
+        <!-- System.State: Active or Resolved -->
+        <map key="B14" value="External" forwardWhen="RE (Registered),AS (Assigned),PP (Proposed),TA (Technical Answer Provided)" inverseWhen="Active,Resolved"/>
+        <map key="B14" value="External - UNI API" inverseWhen="Active,Resolved"/>
+        <map key="B14" value="External - Client (XBOX or SF)" inverseWhen="Active,Resolved"/>      
+    </property> 
+      
+    <property key="ecm:faultCode" value="Microsoft.VSTS.Common.Issue" notifyChange="true">
+        <default forwardValue="Undefined"/>        
+        <map key="120" value="Spec Issue"/>
+        <map key="226" value="Design"/>
+        <map key="232" value="Functional"/>
+        <map key="243" value="Doc"/>
+        <map key="890" value="Undefined"/>
+        <map key="890" value="Accessibility" inverse="true"/>
+        <map key="890" value="API CCB" inverse="true"/>
+        <map key="890" value="Compliance" inverse="true"/>
+        <map key="890" value="Configuration" inverse="true"/>
+        <map key="890" value="Content " inverse="true"/>
+        <map key="890" value="Deployment" inverse="true"/>
+        <map key="890" value="Diagnostics" inverse="true"/>
+        <map key="890" value="Environment" inverse="true"/>
+        <map key="890" value="External" inverse="true"/>
+        <map key="890" value="Feedback" inverse="true"/>
+        <map key="890" value="Localization" inverse="true"/>
+        <map key="890" value="Monitoring" inverse="true"/>
+        <map key="890" value="OEM Hardware" inverse="true"/>
+        <map key="890" value="OEM Software" inverse="true"/>
+        <map key="890" value="Patch Tracker" inverse="true"/>
+        <map key="890" value="Performance" inverse="true"/>
+        <map key="890" value="Product Backlog" inverse="true"/>
+        <map key="890" value="Release Criteria" inverse="true"/>
+        <map key="890" value="Reliability" inverse="true"/>
+        <map key="890" value="Security" inverse="true"/>
+        <map key="890" value="Stability" inverse="true"/>
+        <map key="890" value="Support Query" inverse="true"/>
+        <map key="890" value="Test" inverse="true"/>
+        <map key="890" value="Tools CCB" inverse="true"/>
+        <map key="890" value="Usability" inverse="true"/>
+        <map key="890" value="Work Item" inverse="true"/>
+    </property>
+    
+    <property key="ecm:activity" value="Microsoft.VSTS.MPT.Source" notifyChange="true">
+        <map key="AUT" value="Watson"/>
+        <map key="BT" value="Microsoft Internal"/>
+        <map key="DT" value="Development"/>
+        <map key="FT" value="Test"/>
+        <map key="LIVE" value="Customer"/>
+        <map key="NIT" value="International Test"/>
+        <map key="OPER" value="Operations"/>
+        <map key="PT" value="Production"/>
+        <map key="OT" value="Other"/>
+        <map key="OT" value="CSS" inverse="true"/>
+        <map key="OT" value="Customer/Partner Lab" inverse="true"/>
+        <map key="OT" value="MRSCALE" inverse="true"/>
+        <map key="OT" value="MS Other" inverse="true"/>
+        <map key="OT" value="MSRC" inverse="true"/>
+        <map key="OT" value="Partner" inverse="true"/>
+        <map key="OT" value="PM" inverse="true"/>
+        <map key="OT" value="PSS" inverse="true"/>
+        <map key="OT" value="Public Forum" inverse="true"/>
+        <map key="OT" value="SWI" inverse="true"/>
+        <map key="OT" value="TAP" inverse="true"/>
+    </property>
+    
+<!-- 
+    Note: How handle this in case when writing to TFS (POST/PUT to TFS OSLC Provider)?
+    Currently TFS OSLC Provider will put an incoming Bug to user "Active" regardless.  
+-->     
+    <property key="ecm:firstTechnicalContact" value="Ericsson.Defect.Creator.Signum" inverse="true"/>
+    <property key="ecm:firstTechContactInfo" value="System.CreatedBy" inverse="true"/>
+
+	<!-- Map to Bug "TR State" field based on TR state --> 
+    <property key="oslc_cm:status" value="Ericsson.Defect.State" forward="true">
+        <map key="PR" value="PR (Private)"/>
+        <map key="RE" value="RE (Registered)"/>
+        <map key="AS" value="AS (Assigned)"/>
+        <map key="PP" value="PP (Proposed)"/>
+        <map key="PA" value="PA (Proposal Approved)"/>
+        <map key="CV" value="CV (Correction Verified)"/>
+        <map key="NC" value="NC (Node Component Verified)"/>
+        <map key="TA" value="TA (Technical Answer Provided)"/>
+        <map key="PO" value="PO (Postponed)"/>
+        <map key="CA" value="CA (Cancelled)"/>
+        <map key="FI" value="FI (Finished)"/>                        
+    </property>
+
+	<!-- Map to Bug "State" field based on TR state and inverse (for GET as 
+		for TR state changes the ecm:action property in ECR is used.) -->
+    <property key="oslc_cm:status" value="System.State">  <!-- NEW/Update mapping doc -->
+        <map key="PR" value="Active" forward="true"/>
+        <map key="RE" value="Active" forward="true"/>
+        <map key="AS" value="Active"/>
+        <map key="PP" value="Active" forward="true"/>
+        <map key="PA" value="Active" forward="true"/>
+        <map key="CV" value="Active" forward="true"/>
+        <map key="NC" value="Active" forward="true"/>
+        <map key="TA" value="Resolved"/>
+        <map key="PO" value="Closed" forward="true"/>              
+<!--        <map key="CA" value="Closed" forward="true"/> TODO: Bug.xml prevents going from Active to Closed -->
+        <map key="FI" value="Closed"/>  
+    </property>       
+ 
+    <property key="ecm:currentMho" value="Ericsson.Defect.CurrentMHO">
+        <default forwardValue="MR-DESIGN" inverseValue="MR-DESIGN"/>        
+    </property>
+    
+    <property key="ecm:attachment" value="Ericsson.Defect.Hyperlink" notifyChange="true"/>
+    <property key="oslc_cm:relatedChangeRequest" value="Ericsson.Defect.ID"/>
+<!-- 
+    Note: To map to a release you need the value of both product and product revision.  
+-->      
+    <property key="ecm:nodeProduct" value="Microsoft.VSTS.Common.ReleaseFoundIn" notifyChange="true">
+        <use name="ProductMapping" key="primProdNo"/>
+    </property>
+    <property key="ecm:nodeProductRevision" value="Microsoft.VSTS.Common.ReleaseFoundIn" notifyChange="true">
+        <use name="ProductMapping" key="primRState"/>
+    </property>
+    <property key="ecm:product" value="Microsoft.VSTS.Common.ReleaseFoundIn" notifyChange="true">
+        <use name="ProductMapping"  key="primProdNo"/>
+    </property>
+    <property key="ecm:productRevision" value="Microsoft.VSTS.Common.ReleaseFoundIn" notifyChange="true">
+        <use name="ProductMapping" key="primRState"/>
+    </property>
+    <property key="ecm:correctedProduct" value="Microsoft.VSTS.Common.Release" notifyChange="true">
+       <use name="ProductMapping" key="primProdNo"/>
+    </property>
+    <property key="ecm:correctedProductRevision" value="Microsoft.VSTS.Common.Release" notifyChange="true">
+        <use name="ProductMapping" key="primRState"/>
+    </property>
+    <property key="ecm:correctedNodeProduct" value="Microsoft.VSTS.Common.Release" notifyChange="true">
+       <use name="ProductMapping" key="primProdNo"/>
+    </property>
+    <property key="ecm:correctedNodeProductRevision" value="Microsoft.VSTS.Common.Release" notifyChange="true">
+        <use name="ProductMapping" key="primRState"/>
+    </property>    
+    
+    <property key="ecm:primaryTR" value="Microsoft.VSTS.Common.DuplicateIDParent" notifyChange="true"/>
+</mapping>

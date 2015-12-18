@@ -1,0 +1,2362 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<witd:WITD application="Work item type editor" version="1.0" xmlns:witd="http://schemas.microsoft.com/VisualStudio/2008/workitemtracking/typedef">
+  <WORKITEMTYPE name="Bug">
+    <DESCRIPTION>Describes a divergence between required and actual behavior, and tracks the work done to correct the bug and verify the correction.</DESCRIPTION>
+    <FIELDS>
+      <FIELD name="Iteration Path" refname="System.IterationPath" type="TreePath" reportable="dimension">
+        <HELPTEXT>The iteration of the product with which this bug is associated.</HELPTEXT>
+      </FIELD>
+      <FIELD name="Iteration ID" refname="System.IterationId" type="Integer" />
+      <FIELD name="External Link Count" refname="System.ExternalLinkCount" type="Integer" reportable="measure" formula="sum" />
+      <FIELD name="Team Project" refname="System.TeamProject" type="String" reportable="dimension" />
+      <FIELD name="Hyperlink Count" refname="System.HyperLinkCount" type="Integer" reportable="measure" formula="sum" />
+      <FIELD name="Attached File Count" refname="System.AttachedFileCount" type="Integer" reportable="measure" formula="sum" />
+      <FIELD name="Node Name" refname="System.NodeName" type="String" reportable="dimension" />
+      <FIELD name="Area Path" refname="System.AreaPath" type="TreePath" reportable="dimension">
+        <HELPTEXT>The area of the product with which this bug is associated.</HELPTEXT>
+      </FIELD>
+      <FIELD name="Revised Date" refname="System.RevisedDate" type="DateTime" reportable="detail" />
+      <FIELD name="Changed Date" refname="System.ChangedDate" type="DateTime" reportable="dimension">
+        <HELPTEXT>The date and time of the last update to the bug.</HELPTEXT>
+      </FIELD>
+      <FIELD name="ID" refname="System.Id" type="Integer" reportable="dimension">
+        <HELPTEXT>Human readable, auto-populated numeric Id.</HELPTEXT>
+      </FIELD>
+      <FIELD name="Area ID" refname="System.AreaId" type="Integer" />
+      <FIELD name="Authorized As" refname="System.AuthorizedAs" type="String" syncnamechanges="true" />
+      <FIELD name="Title" refname="System.Title" type="String" reportable="dimension">
+        <HELPTEXT>Short description of the bug used to differentiate it in a list or report.</HELPTEXT>
+        <REQUIRED />
+      </FIELD>
+      <FIELD name="State" refname="System.State" type="String" reportable="dimension">
+        <HELPTEXT>The workflow state of the bug.</HELPTEXT>
+      </FIELD>
+      <FIELD name="Authorized Date" refname="System.AuthorizedDate" type="DateTime" />
+      <FIELD name="Watermark" refname="System.Watermark" type="Integer" />
+      <FIELD name="Rev" refname="System.Rev" type="Integer" reportable="dimension" />
+      <FIELD name="Changed By" refname="System.ChangedBy" type="String" syncnamechanges="true" reportable="dimension">
+        <HELPTEXT>The person who last updated the bug.</HELPTEXT>
+      </FIELD>
+      <FIELD name="Reason" refname="System.Reason" type="String" reportable="dimension">
+        <HELPTEXT>The reason why the bug is in the current state.</HELPTEXT>
+      </FIELD>
+      <FIELD name="Assigned To" refname="System.AssignedTo" type="String" syncnamechanges="true" reportable="dimension">
+        <ALLOWEXISTINGVALUE />
+        <REQUIRED />
+      </FIELD>
+      <FIELD name="Work Item Type" refname="System.WorkItemType" type="String" reportable="dimension" />
+      <FIELD name="Created Date" refname="System.CreatedDate" type="DateTime" reportable="dimension">
+        <HELPTEXT>The date and time the bug was created.</HELPTEXT>
+      </FIELD>
+      <FIELD name="Created By" refname="System.CreatedBy" type="String" syncnamechanges="true" reportable="dimension">
+        <HELPTEXT>The person who created the bug.</HELPTEXT>
+      </FIELD>
+      <FIELD name="Description" refname="System.Description" type="HTML">
+        <HELPTEXT>The description of the bug.</HELPTEXT>
+      </FIELD>
+      <FIELD name="History" refname="System.History" type="History">
+        <HELPTEXT>Discussion thread and other historical information.</HELPTEXT>
+      </FIELD>
+      <FIELD name="Related Link Count" refname="System.RelatedLinkCount" type="Integer" />
+      <FIELD name="Tags" refname="System.Tags" type="PlainText" />
+      <FIELD name="System Info" refname="Microsoft.VSTS.TCM.SystemInfo" type="HTML">
+        <HELPTEXT>Test context, provided automatically by test infrastructure.</HELPTEXT>
+      </FIELD>
+      <FIELD name="Repro Steps" refname="Microsoft.VSTS.TCM.ReproSteps" type="HTML">
+        <HELPTEXT>How to see the bug. End by contrasting expected with actual behavior.</HELPTEXT>
+      </FIELD>
+      <FIELD name="State Change Date" refname="Microsoft.VSTS.Common.StateChangeDate" type="DateTime" reportable="dimension">
+        <WHENCHANGED field="System.State">
+          <SERVERDEFAULT from="clock" />
+        </WHENCHANGED>
+        <WHENNOTCHANGED field="System.State">
+          <READONLY />
+        </WHENNOTCHANGED>
+      </FIELD>
+      <FIELD name="Activated Date" refname="Microsoft.VSTS.Common.ActivatedDate" type="DateTime" reportable="dimension">
+        <WHENNOTCHANGED field="System.State">
+          <READONLY />
+        </WHENNOTCHANGED>
+      </FIELD>
+      <FIELD name="Activated By" refname="Microsoft.VSTS.Common.ActivatedBy" type="String" syncnamechanges="true" reportable="dimension">
+        <WHENNOTCHANGED field="System.State">
+          <READONLY not="[global]\Project Collection Administrators" />
+        </WHENNOTCHANGED>
+      </FIELD>
+      <FIELD name="Resolved Date" refname="Microsoft.VSTS.Common.ResolvedDate" type="DateTime" reportable="dimension" />
+      <FIELD name="Resolved By" refname="Microsoft.VSTS.Common.ResolvedBy" type="String" syncnamechanges="true" reportable="dimension" />
+      <FIELD name="Resolved Reason" refname="Microsoft.VSTS.Common.ResolvedReason" type="String" reportable="dimension">
+        <HELPTEXT>Resolved Reason</HELPTEXT>
+      </FIELD>
+      <FIELD name="Closed Date" refname="Microsoft.VSTS.Common.ClosedDate" type="DateTime" reportable="dimension" />
+      <FIELD name="Closed By" refname="Microsoft.VSTS.Common.ClosedBy" type="String" syncnamechanges="true" reportable="dimension" />
+      <FIELD name="Priority" refname="Microsoft.VSTS.Common.Priority" type="Integer" reportable="dimension">
+        <HELPTEXT>Prioritizes product defect
+0. Must fix ASAP, Blocking further progress
+1. Should fix soon, before next major milestone certainly
+2. Fix if time permits, may be postponed
+3. Candidate for being cut entirely</HELPTEXT>
+        <REQUIRED />
+        <ALLOWEDVALUES expanditems="true">
+          <LISTITEM value="1" />
+          <LISTITEM value="2" />
+          <LISTITEM value="3" />
+          <LISTITEM value="0" />
+        </ALLOWEDVALUES>
+        <DEFAULT from="value" value="2" />
+      </FIELD>
+      <FIELD name="Severity" refname="Microsoft.VSTS.Common.Severity" type="String" reportable="dimension">
+        <HELPTEXT>Categorizes defect impact					
+0. System crash or data loss
+1. User activity blocked or other severe problems - product crashes in rare cases
+2. Minor functionality problems, may affect fit and finish
+3. Typos, unclear wording - low visiblity</HELPTEXT>
+        <ALLOWEDVALUES expanditems="true">
+          <LISTITEM value="1" />
+          <LISTITEM value="2" />
+          <LISTITEM value="3" />
+          <LISTITEM value="0" />
+        </ALLOWEDVALUES>
+        <DEFAULT from="value" value="2" />
+      </FIELD>
+      <FIELD name="Stack Rank" refname="Microsoft.VSTS.Common.StackRank" type="Double" reportable="dimension">
+        <HELPTEXT>Work first on items with lower-valued stack rank. Set in triage.</HELPTEXT>
+      </FIELD>
+      <FIELD name="Integration Build" refname="Microsoft.VSTS.Build.IntegrationBuild" type="String" reportable="dimension">
+        <HELPTEXT>The build in which the bug was fixed.</HELPTEXT>
+        <SUGGESTEDVALUES expanditems="true">
+          <LISTITEM value="&lt;None&gt;" />
+        </SUGGESTEDVALUES>
+        <SUGGESTEDVALUES expanditems="true" filteritems="excludegroups">
+          <GLOBALLIST name="Builds - ISS Media Platform" />
+        </SUGGESTEDVALUES>
+      </FIELD>
+      <FIELD name="Found In" refname="Microsoft.VSTS.Build.FoundIn" type="String" reportable="dimension">
+        <HELPTEXT>The build in which the bug was found.</HELPTEXT>
+        <SUGGESTEDVALUES expanditems="true">
+          <LISTITEM value="&lt;None&gt;" />
+        </SUGGESTEDVALUES>
+        <SUGGESTEDVALUES expanditems="true" filteritems="excludegroups">
+          <GLOBALLIST name="Builds - ISS Media Platform" />
+        </SUGGESTEDVALUES>
+      </FIELD>
+      <FIELD name="Issue" refname="Microsoft.VSTS.Common.Issue" type="String" reportable="dimension">
+        <HELPTEXT>Issue type or category of the bug.</HELPTEXT>
+        <REQUIRED />
+        <ALLOWEDVALUES expanditems="true">
+          <LISTITEM value="Design" />
+          <LISTITEM value="Deployment" />
+          <LISTITEM value="Test" />
+          <LISTITEM value="Accessibility" />
+          <LISTITEM value="Localization" />
+          <LISTITEM value="Performance" />
+          <LISTITEM value="Usability" />
+          <LISTITEM value="External" />
+          <LISTITEM value="Product Backlog" />
+          <LISTITEM value="Security" />
+          <LISTITEM value="Work Item" />
+          <LISTITEM value="Content" />
+          <LISTITEM value="Feedback" />
+          <LISTITEM value="Doc" />
+          <LISTITEM value="Functional" />
+          <LISTITEM value="Reliability" />
+          <LISTITEM value="Configuration" />
+          <LISTITEM value="Compliance" />
+          <LISTITEM value="Undefined" />
+          <LISTITEM value="Environment" />
+          <LISTITEM value="Spec Issue" />
+          <LISTITEM value="Monitoring" />
+          <LISTITEM value="Stability" />
+          <LISTITEM value="OEM Hardware" />
+          <LISTITEM value="OEM Software" />
+          <LISTITEM value="API CCB" />
+          <LISTITEM value="Patch Tracker" />
+          <LISTITEM value="Release Criteria" />
+          <LISTITEM value="Support Query" />
+          <LISTITEM value="Tools CCB" />
+          <LISTITEM value="Diagnostics" />
+          <LISTITEM value="Test Framework" />
+        </ALLOWEDVALUES>
+        <WHEN field="Microsoft.VSTS.MPT.Cause" value="Not a security bug">
+          <ALLOWEDVALUES expanditems="true">
+            <LISTITEM value="Design" />
+            <LISTITEM value="Deployment" />
+            <LISTITEM value="Test" />
+            <LISTITEM value="Accessibility" />
+            <LISTITEM value="Localization" />
+            <LISTITEM value="Performance" />
+            <LISTITEM value="Usability" />
+            <LISTITEM value="External" />
+            <LISTITEM value="Product Backlog" />
+            <LISTITEM value="Security" />
+            <LISTITEM value="Work Item" />
+            <LISTITEM value="Content" />
+            <LISTITEM value="Feedback" />
+            <LISTITEM value="Doc" />
+            <LISTITEM value="Functional" />
+            <LISTITEM value="Reliability" />
+            <LISTITEM value="Configuration" />
+            <LISTITEM value="Compliance" />
+            <LISTITEM value="Undefined" />
+            <LISTITEM value="Environment" />
+            <LISTITEM value="Spec Issue" />
+            <LISTITEM value="Monitoring" />
+            <LISTITEM value="Stability" />
+            <LISTITEM value="OEM Hardware" />
+            <LISTITEM value="OEM Software" />
+            <LISTITEM value="API CCB" />
+            <LISTITEM value="Patch Tracker" />
+            <LISTITEM value="Release Criteria" />
+            <LISTITEM value="Support Query" />
+            <LISTITEM value="Tools CCB" />
+            <LISTITEM value="Diagnostics" />
+            <LISTITEM value="Test Framework" />
+          </ALLOWEDVALUES>
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.MPT.Cause" value="Buffer Overflow/Underflow">
+          <ALLOWEDVALUES expanditems="true">
+            <LISTITEM value="Security" />
+          </ALLOWEDVALUES>
+          <COPY from="value" value="Security" />
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.MPT.Cause" value="Arithmetic Error">
+          <ALLOWEDVALUES expanditems="true">
+            <LISTITEM value="Security" />
+          </ALLOWEDVALUES>
+          <COPY from="value" value="Security" />
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.MPT.Cause" value="SQL/Script Injection">
+          <ALLOWEDVALUES expanditems="true">
+            <LISTITEM value="Security" />
+          </ALLOWEDVALUES>
+          <COPY from="value" value="Security" />
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.MPT.Cause" value="Directory Traversal">
+          <ALLOWEDVALUES expanditems="true">
+            <LISTITEM value="Security" />
+          </ALLOWEDVALUES>
+          <COPY from="value" value="Security" />
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.MPT.Cause" value="Race Condition">
+          <ALLOWEDVALUES expanditems="true">
+            <LISTITEM value="Security" />
+          </ALLOWEDVALUES>
+          <COPY from="value" value="Security" />
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.MPT.Cause" value="Cross-Site Scripting">
+          <ALLOWEDVALUES expanditems="true">
+            <LISTITEM value="Security" />
+          </ALLOWEDVALUES>
+          <COPY from="value" value="Security" />
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.MPT.Cause" value="Cryptographic Weakness">
+          <ALLOWEDVALUES expanditems="true">
+            <LISTITEM value="Security" />
+          </ALLOWEDVALUES>
+          <COPY from="value" value="Security" />
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.MPT.Cause" value="Weak Authentication">
+          <ALLOWEDVALUES expanditems="true">
+            <LISTITEM value="Security" />
+          </ALLOWEDVALUES>
+          <COPY from="value" value="Security" />
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.MPT.Cause" value="Weak Authorization/Inappropriate permission or ACL">
+          <ALLOWEDVALUES expanditems="true">
+            <LISTITEM value="Security" />
+          </ALLOWEDVALUES>
+          <COPY from="value" value="Security" />
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.MPT.Cause" value="Ineffective Secret Hiding">
+          <ALLOWEDVALUES expanditems="true">
+            <LISTITEM value="Security" />
+          </ALLOWEDVALUES>
+          <COPY from="value" value="Security" />
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.MPT.Cause" value="Unlimited Resource Consumption (DoS)">
+          <ALLOWEDVALUES expanditems="true">
+            <LISTITEM value="Security" />
+          </ALLOWEDVALUES>
+          <COPY from="value" value="Security" />
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.MPT.Cause" value="Incorrect/No Error Messages">
+          <ALLOWEDVALUES expanditems="true">
+            <LISTITEM value="Security" />
+          </ALLOWEDVALUES>
+          <COPY from="value" value="Security" />
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.MPT.Cause" value="Incorrect/No Pathname Canonicalization">
+          <ALLOWEDVALUES expanditems="true">
+            <LISTITEM value="Security" />
+          </ALLOWEDVALUES>
+          <COPY from="value" value="Security" />
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.MPT.Cause" value="Other">
+          <ALLOWEDVALUES expanditems="true">
+            <LISTITEM value="Security" />
+          </ALLOWEDVALUES>
+          <COPY from="value" value="Security" />
+        </WHEN>
+      </FIELD>
+      <FIELD name="Remaining Work" refname="Microsoft.VSTS.Scheduling.RemainingWork" type="Double" reportable="measure" formula="sum">
+        <HELPTEXT>An estimate of the number of hours remaining to complete the task.</HELPTEXT>
+      </FIELD>
+      <FIELD name="Original Estimate" refname="Microsoft.VSTS.Scheduling.OriginalEstimate" type="Double" reportable="measure" formula="sum">
+        <HELPTEXT>Initial rough estimate in units of hours.</HELPTEXT>
+      </FIELD>
+      <FIELD name="Completed Work" refname="Microsoft.VSTS.Scheduling.CompletedWork" type="Double" reportable="measure" formula="sum">
+        <HELPTEXT>The number of hours that have been completed for this task.</HELPTEXT>
+      </FIELD>
+      <FIELD name="Keywords" refname="Microsoft.VSTS.Common.Keywords" type="String" reportable="dimension">
+        <HELPTEXT>Keywords.</HELPTEXT>
+      </FIELD>
+      <FIELD name="How Found (Category)" refname="Microsoft.VSTS.Common.HowFoundCategory" type="String" reportable="dimension">
+        <HELPTEXT>Categorization for How this bug was discovered. How Found is the 'verb' (or how) and Source is the 'noun' or (who/what).</HELPTEXT>
+        <ALLOWEXISTINGVALUE />
+        <DEFAULT from="value" value="Manual Testing" />
+        <REQUIRED />
+        <SUGGESTEDVALUES expanditems="true">
+          <LISTITEM value="Testing" />
+          <LISTITEM value="Deployment" />
+          <LISTITEM value="Test Case" />
+          <LISTITEM value="Operations" />
+          <LISTITEM value="Manual Testing" />
+          <LISTITEM value="Accessibility" />
+          <LISTITEM value="Automation" />
+          <LISTITEM value="Bug Bash" />
+          <LISTITEM value="Build Break" />
+          <LISTITEM value="Code Review" />
+          <LISTITEM value="Dogfood" />
+          <LISTITEM value="Globalization" />
+          <LISTITEM value="Performance" />
+          <LISTITEM value="Security Review" />
+          <LISTITEM value="Spec Review" />
+          <LISTITEM value="Usability" />
+          <LISTITEM value="Partner" />
+          <LISTITEM value="Beta" />
+          <LISTITEM value="BVT" />
+          <LISTITEM value="UNKNOWN" />
+          <LISTITEM value="Takehome" />
+          <LISTITEM value="Preview" />
+          <LISTITEM value="Cert" />
+          <LISTITEM value="Production" />
+          <LISTITEM value="CSS" />
+          <LISTITEM value="Customer/End User" />
+          <LISTITEM value="Ad Hoc testing" />
+          <LISTITEM value="Feedback Form" />
+          <LISTITEM value="LiveSite" />
+          <LISTITEM value="RCA" />
+          <LISTITEM value="Alcatel" />
+          <LISTITEM value="Bell Canada" />
+          <LISTITEM value="Magyar Telekom" />
+          <LISTITEM value="Swisscom" />
+          <LISTITEM value="Telus" />
+          <LISTITEM value="MTBF" />
+          <LISTITEM value="Test Pass" />
+          <LISTITEM value="2.0 Limited Distro Release" />
+          <LISTITEM value="Alcatel NSIT" />
+          <LISTITEM value="Alpha Program" />
+          <LISTITEM value="ALU - Customer Lab" />
+          <LISTITEM value="ATT Field" />
+          <LISTITEM value="ATT Labs" />
+          <LISTITEM value="ATT Production" />
+          <LISTITEM value="Austin labs" />
+          <LISTITEM value="BellAliant" />
+          <LISTITEM value="Debug Cage" />
+          <LISTITEM value="Doc Review" />
+          <LISTITEM value="Field" />
+          <LISTITEM value="Internal Testing" />
+          <LISTITEM value="Lab" />
+          <LISTITEM value="NSIT MS Team" />
+          <LISTITEM value="NSIT Testing" />
+          <LISTITEM value="OEM Porting" />
+          <LISTITEM value="OSIT Testing" />
+          <LISTITEM value="PATSAV" />
+          <LISTITEM value="PATSHAL" />
+          <LISTITEM value="Platform Automation" />
+          <LISTITEM value="RAT" />
+          <LISTITEM value="Superlab" />
+          <LISTITEM value="Telefonica AV lab testing" />
+          <LISTITEM value="Test Pass_MANUAL" />
+          <LISTITEM value="T-Online Germany" />
+          <LISTITEM value="triage 2.2 planning" />
+          <LISTITEM value="Upgrade" />
+          <LISTITEM value="Security Tool – FxCop" />
+          <LISTITEM value="Security Tool – BinScope" />
+          <LISTITEM value="Security Tool – SSEPTIC" />
+          <LISTITEM value="Security Tool – RestFuzzing" />
+          <LISTITEM value="Security Tool – XssProbe" />
+          <LISTITEM value="Security Tool – Threat Modeling" />
+          <LISTITEM value="FFA Internal Testing" />
+          <LISTITEM value="FFA Testing" />
+          <LISTITEM value="GZDM" />
+          <LISTITEM value="Ea Tel" />
+          <LISTITEM value="Sask Tel" />
+          <LISTITEM value="SIL" />
+          <LISTITEM value="Engineering Drop" />
+          <LISTITEM value="Bug Tool" />
+          <LISTITEM value="RIG 1" />
+          <LISTITEM value="RIG 2" />
+          <LISTITEM value="Sauce Lab" />
+        </SUGGESTEDVALUES>
+      </FIELD>
+      <FIELD name="Regression" refname="Microsoft.VSTS.Common.Regression" type="String" reportable="dimension">
+        <HELPTEXT>Does this bug represent a regression in functionality or performance.</HELPTEXT>
+        <ALLOWEDVALUES expanditems="true">
+          <LISTITEM value="Yes" />
+          <LISTITEM value="No" />
+          <LISTITEM value="UNKNOWN" />
+        </ALLOWEDVALUES>
+      </FIELD>
+      <FIELD name="Duplicate ID (Parent)" refname="Microsoft.VSTS.Common.DuplicateIDParent" type="Integer" reportable="dimension">
+        <HELPTEXT>TFS ID of duplicate bug in the same team project.</HELPTEXT>
+        <WHEN field="Microsoft.VSTS.Common.SubState" value="Duplicate">
+          <REQUIRED />
+          <NOTSAMEAS field="System.Id" />
+        </WHEN>
+        <WHENNOT field="Microsoft.VSTS.Common.SubState" value="Duplicate">
+          <EMPTY />
+        </WHENNOT>
+      </FIELD>
+      <FIELD name="Triage" refname="Microsoft.VSTS.Common.Triage" type="String" reportable="dimension">
+        <HELPTEXT>More Info: Not enough information to triage, add info and re-submit
+Submitted: Submitted to Shiproom Triage
+Approved: Approved for implementation/checkin/integration
+Rejected:  Cannot be checked-in/integrated</HELPTEXT>
+        <ALLOWEDVALUES expanditems="true">
+          <LISTITEM value="Rejected" />
+          <LISTITEM value="Approved" />
+          <LISTITEM value="Investigate" />
+          <LISTITEM value="Not-triaged" />
+          <LISTITEM value="Requested" />
+        </ALLOWEDVALUES>
+        <DEFAULT from="value" value="Requested" />
+      </FIELD>
+      <FIELD name="Team Name" refname="Microsoft.VSTS.Common.Team" type="String" reportable="dimension">
+        <ALLOWEXISTINGVALUE />
+        <ALLOWEDVALUES expanditems="true">
+          <GLOBALLIST name="MPB_Team" />
+        </ALLOWEDVALUES>
+      </FIELD>
+      <FIELD name="PM Owner" refname="IEB.TSB.PMOwner" type="String" syncnamechanges="true" reportable="dimension">
+        <ALLOWEXISTINGVALUE />
+        <ALLOWEDVALUES expanditems="true" filteritems="excludegroups">
+          <LISTITEM value="[project]\Contributors" />
+        </ALLOWEDVALUES>
+      </FIELD>
+      <FIELD name="Escalation Alias" refname="Microsoft.VSTS.Common.EscalationAlias" type="String" reportable="dimension">
+        <HELPTEXT>Escalation Alias</HELPTEXT>
+        <ALLOWEXISTINGVALUE />
+        <ALLOWEDVALUES expanditems="true" filteritems="excludegroups">
+          <LISTITEM value="[project]\Contributors" />
+        </ALLOWEDVALUES>
+      </FIELD>
+      <FIELD name="Ship Vehicle" refname="Microsoft.VSTS.Common.ShipVehicle" type="String" reportable="dimension">
+        <SUGGESTEDVALUES expanditems="true">
+          <LISTITEM value="Hotfix" />
+          <LISTITEM value="TV3 Jan Release" />
+          <LISTITEM value="TV3 Mar Release" />
+          <LISTITEM value="TV3 Apr Release" />
+          <LISTITEM value="TV3 Jun Release" />
+          <LISTITEM value="OOB release" />
+        </SUGGESTEDVALUES>
+      </FIELD>
+      <FIELD name="Dev Owner" refname="Microsoft.VSTS.Common.QGDevelopmentOwner" type="String" syncnamechanges="true" reportable="dimension">
+        <ALLOWEXISTINGVALUE />
+        <ALLOWEDVALUES expanditems="true" filteritems="excludegroups">
+          <LISTITEM value="[project]\Contributors" />
+        </ALLOWEDVALUES>
+      </FIELD>
+      <FIELD name="Test Owner" refname="Microsoft.VSTS.Common.QGTestOwner" type="String" syncnamechanges="true" reportable="dimension">
+        <ALLOWEXISTINGVALUE />
+        <ALLOWEDVALUES expanditems="true" filteritems="excludegroups">
+          <LISTITEM value="[project]\Contributors" />
+        </ALLOWEDVALUES>
+      </FIELD>
+      <FIELD name="Security Review Owner" refname="Microsoft.VSTS.Common.QGSecurityReviewOwner" type="String" syncnamechanges="true" reportable="dimension">
+        <ALLOWEXISTINGVALUE />
+        <ALLOWEDVALUES expanditems="true" filteritems="excludegroups">
+          <LISTITEM value="[project]\Contributors" />
+        </ALLOWEDVALUES>
+      </FIELD>
+      <FIELD name="Fix By Date" refname="Microsoft.VSTS.Common.FixByDate" type="DateTime" reportable="dimension" />
+      <FIELD name="Shiproom Triage" refname="Microsoft.VSTS.Common.ShiproomTriage" type="String" reportable="dimension">
+        <ALLOWEDVALUES expanditems="true">
+          <LISTITEM value="Rejected" />
+          <LISTITEM value="N/A" />
+          <LISTITEM value="Approved" />
+          <LISTITEM value="Investigate" />
+          <LISTITEM value="Consider" />
+          <LISTITEM value="Not-triaged" />
+          <LISTITEM value="LT Reviewed" />
+        </ALLOWEDVALUES>
+        <DEFAULT from="value" value="Not-triaged" />
+      </FIELD>
+      <FIELD name="Language" refname="Microsoft.VSTS.Common.Language" type="String" reportable="dimension">
+        <SUGGESTEDVALUES expanditems="true">
+          <LISTITEM value="ARA" />
+          <LISTITEM value="CJK" />
+          <LISTITEM value="IND" />
+          <LISTITEM value="RAG" />
+        </SUGGESTEDVALUES>
+      </FIELD>
+      <FIELD name="Country" refname="Microsoft.VSTS.Common.Country" type="String" reportable="dimension" />
+      <FIELD name="Blocking" refname="Microsoft.VSTS.Common.Blocking" type="String" reportable="dimension">
+        <ALLOWEDVALUES expanditems="true">
+          <LISTITEM value="Deployment" />
+          <LISTITEM value="Beta" />
+          <LISTITEM value="RTW" />
+          <LISTITEM value="Sprint/Milestone Exit" />
+          <LISTITEM value="Takehome" />
+          <LISTITEM value="Preview" />
+          <LISTITEM value="ZBB" />
+          <LISTITEM value="RC" />
+          <LISTITEM value="Cert" />
+          <LISTITEM value="Production" />
+          <LISTITEM value="Code Complete" />
+        </ALLOWEDVALUES>
+      </FIELD>
+      <FIELD name="Resolution" refname="Microsoft.VSTS.Common.Resolution" type="String" />
+      <FIELD name="Sub State" refname="Microsoft.VSTS.Common.SubState" type="String" reportable="dimension">
+        <WHEN field="System.State" value="Active">
+          <ALLOWEDVALUES expanditems="true">
+            <LISTITEM value="Code Review" />
+            <LISTITEM value="External" />
+            <LISTITEM value="Blocked" />
+            <LISTITEM value="Bug Understood" />
+            <LISTITEM value="Fix in Progress" />
+            <LISTITEM value="Fix Built" />
+            <LISTITEM value="Fix Ready/Tested" />
+            <LISTITEM value="Investigating" />
+            <LISTITEM value="Needs More Information" />
+            <LISTITEM value="External - Client (XBOX or SF)" />
+            <LISTITEM value="External -  UNI API" />
+            <LISTITEM value="Merge Request" />
+          </ALLOWEDVALUES>
+        </WHEN>
+        <WHEN field="System.State" value="Resolved">
+          <ALLOWEDVALUES expanditems="true">
+            <LISTITEM value="Duplicate" />
+            <LISTITEM value="Fixed" />
+            <LISTITEM value="By Design" />
+            <LISTITEM value="External" />
+            <LISTITEM value="Not Repro" />
+            <LISTITEM value="Postponed" />
+            <LISTITEM value="Won't Fix" />
+            <LISTITEM value="Needs Info" />
+            <LISTITEM value="External - Client (XBOX or SF)" />
+            <LISTITEM value="External -  UNI API" />
+          </ALLOWEDVALUES>
+          <REQUIRED />
+        </WHEN>
+        <WHEN field="System.State" value="Closed">
+          <ALLOWEDVALUES expanditems="true">
+            <LISTITEM value="Duplicate" />
+            <LISTITEM value="Fixed" />
+            <LISTITEM value="By Design" />
+            <LISTITEM value="External" />
+            <LISTITEM value="Not Repro" />
+            <LISTITEM value="Postponed" />
+            <LISTITEM value="Won't Fix" />
+            <LISTITEM value="Needs Info" />
+            <LISTITEM value="External - Client (XBOX or SF)" />
+            <LISTITEM value="External -  UNI API" />
+          </ALLOWEDVALUES>
+          <REQUIRED />
+        </WHEN>
+      </FIELD>
+      <FIELD name="Found in Branch" refname="Microsoft.VSTS.Branch.FoundIn" type="String" reportable="dimension" />
+      <FIELD name="Found in Environment" refname="Microsoft.VSTS.Environment.FoundIn" type="String" reportable="dimension">
+        <ALLOWEDVALUES expanditems="true">
+          <LISTITEM value="Local" />
+          <LISTITEM value="Demo" />
+          <LISTITEM value="Integration" />
+          <LISTITEM value="DevTest" />
+          <LISTITEM value="PreProd" />
+          <LISTITEM value="ProdC" />
+          <LISTITEM value="MS DevTest" />
+          <LISTITEM value="MS PreProd" />
+          <LISTITEM value="ProdC.TLS" />
+          <LISTITEM value="ProdC.ATT" />
+        </ALLOWEDVALUES>
+      </FIELD>
+      <FIELD name="Source" refname="Microsoft.VSTS.MPT.Source" type="String" reportable="dimension">
+        <HELPTEXT>The source from which the bug report originated.  How Found is the 'verb' (or how) and Source is the 'noun' or (who/what).</HELPTEXT>
+        <ALLOWEDVALUES expanditems="true">
+          <LISTITEM value="Development" />
+          <LISTITEM value="Test" />
+          <LISTITEM value="PM" />
+          <LISTITEM value="Operations" />
+          <LISTITEM value="Customer" />
+          <LISTITEM value="Partner" />
+          <LISTITEM value="Other" />
+          <LISTITEM value="Production" />
+          <LISTITEM value="CSS" />
+          <LISTITEM value="International Test" />
+          <LISTITEM value="MS Other" />
+          <LISTITEM value="MSRC" />
+          <LISTITEM value="PSS" />
+          <LISTITEM value="Public Forum" />
+          <LISTITEM value="SWI" />
+          <LISTITEM value="TAP" />
+          <LISTITEM value="Watson" />
+          <LISTITEM value="Customer/Partner Lab" />
+          <LISTITEM value="Microsoft Internal" />
+          <LISTITEM value="MRSCALE" />
+          <LISTITEM value="TV3 Service Mail" />
+        </ALLOWEDVALUES>
+      </FIELD>
+      <FIELD name="Security Cause" refname="Microsoft.VSTS.MPT.Cause" type="String" reportable="dimension">
+        <HELPTEXT>The cause for the security bug.</HELPTEXT>
+        <ALLOWEDVALUES expanditems="true">
+          <LISTITEM value="Not a security bug" />
+          <LISTITEM value="Other" />
+          <LISTITEM value="Buffer Overflow/Underflow" />
+          <LISTITEM value="Arithmetic Error" />
+          <LISTITEM value="SQL/Script Injection" />
+          <LISTITEM value="Directory Traversal" />
+          <LISTITEM value="Race Condition" />
+          <LISTITEM value="Cross-Site Scripting" />
+          <LISTITEM value="Cryptographic Weakness" />
+          <LISTITEM value="Weak Authentication" />
+          <LISTITEM value="Weak Authorization/Inappropriate permission or ACL" />
+          <LISTITEM value="Ineffective Secret Hiding" />
+          <LISTITEM value="Unlimited Resource Consumption (DoS)" />
+          <LISTITEM value="Incorrect/No Error Messages" />
+          <LISTITEM value="Incorrect/No Pathname Canonicalization" />
+        </ALLOWEDVALUES>
+        <DEFAULT from="value" value="Not a security bug" />
+        <WHEN field="Microsoft.VSTS.Common.Issue" value="Security">
+          <ALLOWEDVALUES expanditems="true">
+            <LISTITEM value="Other" />
+            <LISTITEM value="Buffer Overflow/Underflow" />
+            <LISTITEM value="Arithmetic Error" />
+            <LISTITEM value="SQL/Script Injection" />
+            <LISTITEM value="Directory Traversal" />
+            <LISTITEM value="Race Condition" />
+            <LISTITEM value="Cross-Site Scripting" />
+            <LISTITEM value="Cryptographic Weakness" />
+            <LISTITEM value="Weak Authentication" />
+            <LISTITEM value="Weak Authorization/Inappropriate permission or ACL" />
+            <LISTITEM value="Ineffective Secret Hiding" />
+            <LISTITEM value="Unlimited Resource Consumption (DoS)" />
+            <LISTITEM value="Incorrect/No Error Messages" />
+            <LISTITEM value="Incorrect/No Pathname Canonicalization" />
+          </ALLOWEDVALUES>
+        </WHEN>
+      </FIELD>
+      <FIELD name="Security Effect" refname="Microsoft.VSTS.MPT.Effect" type="String" reportable="dimension">
+        <HELPTEXT>The effect of the security bug.</HELPTEXT>
+        <ALLOWEDVALUES expanditems="true">
+          <LISTITEM value="Not a security bug" />
+          <LISTITEM value="Spoofing" />
+          <LISTITEM value="Tampering" />
+          <LISTITEM value="Repudiation" />
+          <LISTITEM value="Information Disclosure" />
+          <LISTITEM value="Denial of Service" />
+          <LISTITEM value="Elevation of Privilege" />
+          <LISTITEM value="Attack Surface Reduction" />
+        </ALLOWEDVALUES>
+        <DEFAULT from="value" value="Not a security bug" />
+        <WHEN field="Microsoft.VSTS.MPT.Cause" value="Not a security bug">
+          <ALLOWEDVALUES expanditems="true">
+            <LISTITEM value="Not a security bug" />
+          </ALLOWEDVALUES>
+        </WHEN>
+        <WHENNOT field="Microsoft.VSTS.MPT.Cause" value="Not a security bug">
+          <PROHIBITEDVALUES expanditems="true">
+            <LISTITEM value="Not a security bug" />
+          </PROHIBITEDVALUES>
+        </WHENNOT>
+      </FIELD>
+      <FIELD name="Security Effect Scope" refname="Microsoft.VSTS.MPT.Scope" type="String" reportable="dimension">
+        <HELPTEXT>The scope of the effect of the security bug. This value is used to determine the default Security Severity.</HELPTEXT>
+        <ALLOWEDVALUES expanditems="true">
+          <LISTITEM value="Not Applicable" />
+          <LISTITEM value="Client - Spoofed trusted UI in common/default scenario" />
+          <LISTITEM value="Client - Spoofed trusted UI in specific other scenario" />
+          <LISTITEM value="Client - Spoofed UI as part of a larger attack scenario" />
+          <LISTITEM value="Server - Spoofed specific user or computer over secure protocol" />
+          <LISTITEM value="Server - Spoofed random user or computer over secure protocol" />
+          <LISTITEM value="Client - Tampered trusted data that persists after restart" />
+          <LISTITEM value="Client - Tampered data that does not persist after restart" />
+          <LISTITEM value="Server - Tampered trusted data in common/default scenario that persists after restart" />
+          <LISTITEM value="Server - Tampered trusted data in specific other scenario that persists after restart" />
+          <LISTITEM value="Server - Tampered data in common/default scenario that does not persist after restart" />
+          <LISTITEM value="Server - Tampered data in specific other scenario that does not persist after restart" />
+          <LISTITEM value="Client - Attacker can locate and read information on the system including system information" />
+          <LISTITEM value="Client - Attacker can read information from known locations on the system including system information" />
+          <LISTITEM value="Client - Any untargeted information disclosure (random data)" />
+          <LISTITEM value="Server - Attacker can locate and read information on the system including system information" />
+          <LISTITEM value="Server - Attacker can read information from known locations on the system including system information" />
+          <LISTITEM value="Server - Any untargeted information disclosure (random data)" />
+          <LISTITEM value="Client - Denial of service that requires reinstallation of system and/or components" />
+          <LISTITEM value="Client - Denial of service that requires reboot or causes blue screen/bug check" />
+          <LISTITEM value="Client - Denial of service that requires restart of application" />
+          <LISTITEM value="Server - Denial of service by anonymous user with small amount of data" />
+          <LISTITEM value="Server - Denial of service by anonymous user without amplification in default/common install" />
+          <LISTITEM value="Server - Denial of service by authenticated user that requires system reboot or reinstallation" />
+          <LISTITEM value="Server - Denial of service by authenticated user in default/common install" />
+          <LISTITEM value="Client - Remote user has the ability to execute arbitrary code or obtain more privilege than intended" />
+          <LISTITEM value="Client - Remote user has the ability to execute arbitrary code with extensive user action" />
+          <LISTITEM value="Client - Local low-privilege user can elevate himself to another user, administrator, or local system" />
+          <LISTITEM value="Server - Remote anonymous user has the ability to execute arbitrary code or obtain more privilege than intended" />
+          <LISTITEM value="Server - Remote authenticated user has the ability to execute arbitrary code or obtain more privilege than intended" />
+          <LISTITEM value="Server - Local authenticated user has the ability to execute arbitrary code or obtain more privilege than intended" />
+        </ALLOWEDVALUES>
+        <DEFAULT from="value" value="Not Applicable" />
+        <WHEN field="Microsoft.VSTS.MPT.Effect" value="Not a security bug">
+          <ALLOWEDVALUES expanditems="true">
+            <LISTITEM value="Not Applicable" />
+          </ALLOWEDVALUES>
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.MPT.Effect" value="Spoofing">
+          <ALLOWEDVALUES expanditems="true">
+            <LISTITEM value="Not Applicable" />
+            <LISTITEM value="Client - Spoofed trusted UI in common/default scenario" />
+            <LISTITEM value="Client - Spoofed trusted UI in specific other scenario" />
+            <LISTITEM value="Client - Spoofed UI as part of a larger attack scenario" />
+            <LISTITEM value="Server - Spoofed specific user or computer over secure protocol" />
+            <LISTITEM value="Server - Spoofed random user or computer over secure protocol" />
+          </ALLOWEDVALUES>
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.MPT.Effect" value="Tampering">
+          <ALLOWEDVALUES expanditems="true">
+            <LISTITEM value="Not Applicable" />
+            <LISTITEM value="Client - Tampered trusted data that persists after restart" />
+            <LISTITEM value="Client - Tampered data that does not persist after restart" />
+            <LISTITEM value="Server - Tampered trusted data in common/default scenario that persists after restart" />
+            <LISTITEM value="Server - Tampered trusted data in specific other scenario that persists after restart" />
+            <LISTITEM value="Server - Tampered data in common/default scenario that does not persist after restart" />
+            <LISTITEM value="Server - Tampered data in specific other scenario that does not persist after restart" />
+          </ALLOWEDVALUES>
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.MPT.Effect" value="Repudiation">
+          <ALLOWEDVALUES expanditems="true">
+            <LISTITEM value="Not Applicable" />
+            <LISTITEM value="Client - Tampered trusted data that persists after restart" />
+            <LISTITEM value="Client - Tampered data that does not persist after restart" />
+            <LISTITEM value="Server - Tampered trusted data in common/default scenario that persists after restart" />
+            <LISTITEM value="Server - Tampered trusted data in specific other scenario that persists after restart" />
+            <LISTITEM value="Server - Tampered data in common/default scenario that does not persist after restart" />
+            <LISTITEM value="Server - Tampered data in specific other scenario that does not persist after restart" />
+          </ALLOWEDVALUES>
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.MPT.Effect" value="Information Disclosure">
+          <ALLOWEDVALUES expanditems="true">
+            <LISTITEM value="Not Applicable" />
+            <LISTITEM value="Client - Attacker can locate and read information on the system including system information" />
+            <LISTITEM value="Client - Attacker can read information from known locations on the system including system information" />
+            <LISTITEM value="Client - Any untargeted information disclosure (random data)" />
+            <LISTITEM value="Server - Attacker can locate and read information on the system including system information" />
+            <LISTITEM value="Server - Attacker can read information from known locations on the system including system information" />
+            <LISTITEM value="Server - Any untargeted information disclosure (random data)" />
+          </ALLOWEDVALUES>
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.MPT.Effect" value="Denial of Service">
+          <ALLOWEDVALUES expanditems="true">
+            <LISTITEM value="Not Applicable" />
+            <LISTITEM value="Client - Denial of service that requires reinstallation of system and/or components" />
+            <LISTITEM value="Client - Denial of service that requires reboot or causes blue screen/bug check" />
+            <LISTITEM value="Client - Denial of service that requires restart of application" />
+            <LISTITEM value="Server - Denial of service by anonymous user with small amount of data" />
+            <LISTITEM value="Server - Denial of service by anonymous user without amplification in default/common install" />
+            <LISTITEM value="Server - Denial of service by authenticated user that requires system reboot or reinstallation" />
+            <LISTITEM value="Server - Denial of service by authenticated user in default/common install" />
+          </ALLOWEDVALUES>
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.MPT.Effect" value="Elevation of Privilege">
+          <ALLOWEDVALUES expanditems="true">
+            <LISTITEM value="Not Applicable" />
+            <LISTITEM value="Client - Remote user has the ability to execute arbitrary code or obtain more privilege than intended" />
+            <LISTITEM value="Client - Remote user has the ability to execute arbitrary code with extensive user action" />
+            <LISTITEM value="Client - Local low-privilege user can elevate himself to another user, administrator, or local system" />
+            <LISTITEM value="Server - Remote anonymous user has the ability to execute arbitrary code or obtain more privilege than intended" />
+            <LISTITEM value="Server - Remote authenticated user has the ability to execute arbitrary code or obtain more privilege than intended" />
+            <LISTITEM value="Server - Local authenticated user has the ability to execute arbitrary code or obtain more privilege than intended" />
+          </ALLOWEDVALUES>
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.MPT.Effect" value="Attack Surface Reduction">
+          <ALLOWEDVALUES expanditems="true">
+            <LISTITEM value="Not Applicable" />
+          </ALLOWEDVALUES>
+        </WHEN>
+      </FIELD>
+      <FIELD name="Security Severity" refname="Microsoft.VSTS.MPT.Severity" type="String" reportable="dimension">
+        <HELPTEXT>The suggested severity of the bug as determined by the Security Effect Scope.</HELPTEXT>
+        <WHEN field="Microsoft.VSTS.MPT.Scope" value="Not Applicable">
+          <COPY from="value" value="" />
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.MPT.Scope" value="Client - Spoofed trusted UI in common/default scenario">
+          <COPY from="value" value="2 - High" />
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.MPT.Scope" value="Client - Spoofed trusted UI in specific other scenario">
+          <COPY from="value" value="3 - Medium" />
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.MPT.Scope" value="Client - Spoofed UI as part of a larger attack scenario">
+          <COPY from="value" value="4 - Low" />
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.MPT.Scope" value="Server - Spoofed specific user or computer over secure protocol">
+          <COPY from="value" value="2 - High" />
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.MPT.Scope" value="Server - Spoofed random user or computer over secure protocol">
+          <COPY from="value" value="3 - Medium" />
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.MPT.Scope" value="Client - Tampered trusted data that persists after restart">
+          <COPY from="value" value="2 - High" />
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.MPT.Scope" value="Client - Tampered data that does not persist after restart">
+          <COPY from="value" value="4 - Low" />
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.MPT.Scope" value="Server - Tampered trusted data in common/default scenario that persists after restart">
+          <COPY from="value" value="2 - High" />
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.MPT.Scope" value="Server - Tampered trusted data in specific other scenario that persists after restart">
+          <COPY from="value" value="3 - Medium" />
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.MPT.Scope" value="Server - Tampered data in common/default scenario that does not persist after restart">
+          <COPY from="value" value="3 - Medium" />
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.MPT.Scope" value="Server - Tampered data in specific other scenario that does not persist after restart">
+          <COPY from="value" value="4 - Low" />
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.MPT.Scope" value="Client - Attacker can locate and read information on the system including system information">
+          <COPY from="value" value="2 - High" />
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.MPT.Scope" value="Client - Attacker can read information from known locations on the system including system information">
+          <COPY from="value" value="3 - Medium" />
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.MPT.Scope" value="Client - Any untargeted information disclosure (random data)">
+          <COPY from="value" value="4 - Low" />
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.MPT.Scope" value="Server - Attacker can locate and read information on the system including system information">
+          <COPY from="value" value="2 - High" />
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.MPT.Scope" value="Server - Attacker can read information from known locations on the system including system information">
+          <COPY from="value" value="3 - Medium" />
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.MPT.Scope" value="Server - Any untargeted information disclosure (random data)">
+          <COPY from="value" value="4 - Low" />
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.MPT.Scope" value="Client - Denial of service that requires reinstallation of system and/or components">
+          <COPY from="value" value="2 - High" />
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.MPT.Scope" value="Client - Denial of service that requires reboot or causes blue screen/bug check">
+          <COPY from="value" value="3 - Medium" />
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.MPT.Scope" value="Client - Denial of service that requires restart of application">
+          <COPY from="value" value="4 - Low" />
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.MPT.Scope" value="Server - Denial of service by anonymous user with small amount of data">
+          <COPY from="value" value="2 - High" />
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.MPT.Scope" value="Server - Denial of service by anonymous user without amplification in default/common install">
+          <COPY from="value" value="3 - Medium" />
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.MPT.Scope" value="Server - Denial of service by authenticated user that requires system reboot or reinstallation">
+          <COPY from="value" value="3 - Medium" />
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.MPT.Scope" value="Server - Denial of service by authenticated user in default/common install">
+          <COPY from="value" value="3 - Medium" />
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.MPT.Scope" value="Client - Remote user has the ability to execute arbitrary code or obtain more privilege than intended">
+          <COPY from="value" value="1 - Critical" />
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.MPT.Scope" value="Client - Remote user has the ability to execute arbitrary code with extensive user action">
+          <COPY from="value" value="2 - High" />
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.MPT.Scope" value="Client - Local low-privilege user can elevate himself to another user, administrator, or local system">
+          <COPY from="value" value="2 - High" />
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.MPT.Scope" value="Server - Remote anonymous user has the ability to execute arbitrary code or obtain more privilege than intended">
+          <COPY from="value" value="1 - Critical" />
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.MPT.Scope" value="Server - Remote authenticated user has the ability to execute arbitrary code or obtain more privilege than intended">
+          <COPY from="value" value="2 - High" />
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.MPT.Scope" value="Server - Local authenticated user has the ability to execute arbitrary code or obtain more privilege than intended">
+          <COPY from="value" value="2 - High" />
+        </WHEN>
+      </FIELD>
+      <FIELD name="Design Owner" refname="Microsoft.VSTS.Common.QGDesignOwner" type="String" syncnamechanges="true" reportable="dimension">
+        <ALLOWEXISTINGVALUE />
+        <ALLOWEDVALUES expanditems="true" filteritems="excludegroups">
+          <LISTITEM value="[project]\Contributors" />
+        </ALLOWEDVALUES>
+      </FIELD>
+      <FIELD name="Localization Owner" refname="Microsoft.VSTS.Common.QGLocalizationOwner" type="String" syncnamechanges="true" reportable="dimension">
+        <ALLOWEXISTINGVALUE />
+        <ALLOWEDVALUES expanditems="true" filteritems="excludegroups">
+          <LISTITEM value="[project]\Contributors" />
+        </ALLOWEDVALUES>
+      </FIELD>
+      <FIELD name="Operations Owner" refname="Microsoft.VSTS.Common.QGOperationsOwner" type="String" syncnamechanges="true" reportable="dimension">
+        <ALLOWEXISTINGVALUE />
+        <ALLOWEDVALUES expanditems="true" filteritems="excludegroups">
+          <LISTITEM value="[project]\Contributors" />
+        </ALLOWEDVALUES>
+      </FIELD>
+      <FIELD name="Estimated Close Date" refname="Microsoft.VSTS.Common.EstimatedCloseDate" type="DateTime" reportable="dimension">
+        <HELPTEXT>Estimated Close Date</HELPTEXT>
+      </FIELD>
+      <FIELD name="Opened By" refname="MPB.OpenedBy" type="String" syncnamechanges="true" reportable="dimension" />
+      <FIELD name="PS Bug ID" refname="MPB.PSBugId" type="Integer">
+        <HELPTEXT>This field is used for migration purposes only.</HELPTEXT>
+      </FIELD>
+      <FIELD name="Path" refname="MPB.BugTree" type="String">
+        <HELPTEXT>PS Path</HELPTEXT>
+      </FIELD>
+      <FIELD name="Milestone" refname="Microsoft.VSTS.Common.Milestone" type="String" reportable="dimension">
+        <ALLOWEDVALUES expanditems="true">
+          <GLOBALLIST name="MPB_Milestone" />
+        </ALLOWEDVALUES>
+      </FIELD>
+      <FIELD name="Sprint" refname="Microsoft.VSTS.Common.Sprint" type="String" reportable="dimension">
+        <ALLOWEDVALUES expanditems="true">
+          <GLOBALLIST name="MPB_Sprint" />
+        </ALLOWEDVALUES>
+      </FIELD>
+      <FIELD name="Release" refname="Microsoft.VSTS.Common.Release" type="String" reportable="dimension">
+        <SUGGESTEDVALUES expanditems="true">
+          <GLOBALLIST name="MPB_Req_FeatureRelease" />
+        </SUGGESTEDVALUES>
+      </FIELD>
+      <FIELD name="Hit Count" refname="Microsoft.VSTS.Common.HitCount" type="Integer" reportable="measure" formula="sum">
+        <HELPTEXT>The number of tests or reports from the field that exhibited this issue.</HELPTEXT>
+      </FIELD>
+      <FIELD name="Source ID" refname="Microsoft.VSTS.MPT.SourceID" type="String" reportable="dimension">
+        <HELPTEXT>ID the source (such as Operations) uses to track the originating issue in their system  or ID of the source organization (e.g. Customer/TAP/PartnerID etc).</HELPTEXT>
+        <WHEN field="Microsoft.VSTS.MPT.Source" value="">
+          <EMPTY />
+        </WHEN>
+      </FIELD>
+      <FIELD name="Feature Crew" refname="Microsoft.VSTS.Common.FeatureCrew" type="String" reportable="dimension">
+        <WHEN field="Microsoft.VSTS.Common.Team" value="Commercial Services">
+          <SUGGESTEDVALUES expanditems="true">
+            <LISTITEM value="&lt;None&gt;" />
+          </SUGGESTEDVALUES>
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.Common.Team" value="Content Integration">
+          <SUGGESTEDVALUES expanditems="true">
+            <LISTITEM value="&lt;None&gt;" />
+          </SUGGESTEDVALUES>
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.Common.Team" value="Engineering Fundamentals">
+          <SUGGESTEDVALUES expanditems="true">
+            <LISTITEM value="&lt;None&gt;" />
+          </SUGGESTEDVALUES>
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.Common.Team" value="Entertainment Services">
+          <SUGGESTEDVALUES expanditems="true">
+            <LISTITEM value="&lt;None&gt;" />
+          </SUGGESTEDVALUES>
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.Common.Team" value="IEB Security">
+          <SUGGESTEDVALUES expanditems="true">
+            <LISTITEM value="&lt;None&gt;" />
+          </SUGGESTEDVALUES>
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.Common.Team" value="Infrastructure">
+          <SUGGESTEDVALUES expanditems="true">
+            <LISTITEM value="&lt;None&gt;" />
+          </SUGGESTEDVALUES>
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.Common.Team" value="Knowledge Services">
+          <SUGGESTEDVALUES expanditems="true">
+            <LISTITEM value="&lt;None&gt;" />
+          </SUGGESTEDVALUES>
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.Common.Team" value="Paris">
+          <SUGGESTEDVALUES expanditems="true">
+            <LISTITEM value="&lt;None&gt;" />
+          </SUGGESTEDVALUES>
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.Common.Team" value="Reach">
+          <SUGGESTEDVALUES expanditems="true">
+            <LISTITEM value="&lt;None&gt;" />
+          </SUGGESTEDVALUES>
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.Common.Team" value="Services Excellence">
+          <SUGGESTEDVALUES expanditems="true">
+            <LISTITEM value="&lt;None&gt;" />
+          </SUGGESTEDVALUES>
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.Common.Team" value="SLS">
+          <SUGGESTEDVALUES expanditems="true">
+            <LISTITEM value="&lt;None&gt;" />
+          </SUGGESTEDVALUES>
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.Common.Team" value="Windows Experiences">
+          <SUGGESTEDVALUES expanditems="true">
+            <LISTITEM value="&lt;None&gt;" />
+          </SUGGESTEDVALUES>
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.Common.Team" value="Client">
+          <ALLOWEDVALUES expanditems="true">
+            <LISTITEM value="Regression" />
+            <LISTITEM value="Documentation" />
+            <LISTITEM value="Usability" />
+            <LISTITEM value="Backlog" />
+            <LISTITEM value="Security" />
+            <LISTITEM value="UNKNOWN" />
+            <LISTITEM value="Database" />
+            <LISTITEM value="Compliance" />
+            <LISTITEM value="DVR" />
+            <LISTITEM value="AV" />
+            <LISTITEM value="Solutions" />
+            <LISTITEM value="Hybrid" />
+            <LISTITEM value="Timeshift" />
+            <LISTITEM value="PCON" />
+            <LISTITEM value="Wireless" />
+            <LISTITEM value="HDMI" />
+            <LISTITEM value="MTBF" />
+            <LISTITEM value="OEM" />
+            <LISTITEM value="Orapa Client" />
+            <LISTITEM value="Other New Feature" />
+            <LISTITEM value="Perf" />
+            <LISTITEM value="Power Management" />
+            <LISTITEM value="TV Posters" />
+            <LISTITEM value="Analytics" />
+            <LISTITEM value="Test Tools" />
+            <LISTITEM value="AutomationStab" />
+            <LISTITEM value="EAS" />
+            <LISTITEM value="ServerValidation" />
+            <LISTITEM value="fc_mds" />
+            <LISTITEM value="HW Partner" />
+            <LISTITEM value="Apps" />
+            <LISTITEM value="A/V Server" />
+          </ALLOWEDVALUES>
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.Common.Team" value="Dakar">
+          <ALLOWEDVALUES expanditems="true">
+            <LISTITEM value="Platform" />
+            <LISTITEM value="Security" />
+            <LISTITEM value="Media &amp; Services" />
+          </ALLOWEDVALUES>
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.Common.Team" value="Cloud">
+          <ALLOWEDVALUES expanditems="true">
+            <LISTITEM value="Security" />
+            <LISTITEM value="Reach" />
+            <LISTITEM value="Discovery" />
+            <LISTITEM value="STB" />
+            <LISTITEM value="LOTT" />
+            <LISTITEM value="Service Engineering" />
+            <LISTITEM value="Ingest" />
+            <LISTITEM value="Subscriber" />
+            <LISTITEM value="Operator Portal" />
+            <LISTITEM value="UC Platform" />
+            <LISTITEM value="Napa Platform" />
+            <LISTITEM value="Media and Services" />
+            <LISTITEM value="DRM" />
+            <LISTITEM value="DVR Management" />
+            <LISTITEM value="Analytics" />
+            <LISTITEM value="Content Infrastructure" />
+            <LISTITEM value="Client and Services" />
+            <LISTITEM value="Test Tools and Infrastructure" />
+          </ALLOWEDVALUES>
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.Common.Team" value="RENO">
+          <ALLOWEDVALUES expanditems="true">
+            <LISTITEM value="Security" />
+            <LISTITEM value="Support" />
+            <LISTITEM value="Tools" />
+            <LISTITEM value="Source" />
+            <LISTITEM value="Bugs" />
+            <LISTITEM value="Labs" />
+            <LISTITEM value="Intranet and Internet Sites" />
+            <LISTITEM value="Engineering IT" />
+            <LISTITEM value="Documentation, Traning and UX" />
+          </ALLOWEDVALUES>
+          <REQUIRED />
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.Common.Team" value="Server">
+          <ALLOWEDVALUES expanditems="true">
+            <LISTITEM value="Documentation" />
+            <LISTITEM value="Backlog" />
+            <LISTITEM value="Security" />
+            <LISTITEM value="UNKNOWN" />
+            <LISTITEM value="Database" />
+            <LISTITEM value="Compliance" />
+            <LISTITEM value="Solutions" />
+            <LISTITEM value="Other New Feature" />
+            <LISTITEM value="Perf" />
+            <LISTITEM value="Analytics" />
+            <LISTITEM value="Test Tools" />
+            <LISTITEM value="AutomationStab" />
+            <LISTITEM value="ServerValidation" />
+            <LISTITEM value="Apps" />
+            <LISTITEM value="A/V Server" />
+          </ALLOWEDVALUES>
+        </WHEN>
+      </FIELD>
+      <FIELD name="ConversationID" refname="MPB.ConversationID" type="String" />
+      <FIELD name="Notify List" refname="MPB.NotifyList" type="String" reportable="dimension">
+        <HELPTEXT>Notify List</HELPTEXT>
+      </FIELD>
+      <FIELD name="Impact" refname="Microsoft.VSTS.Common.Impact" type="String" reportable="dimension">
+        <ALLOWEDVALUES expanditems="true">
+          <LISTITEM value="Service" />
+          <LISTITEM value="iOS" />
+          <LISTITEM value="Operator Portal" />
+          <LISTITEM value="STB Client" />
+          <LISTITEM value="Reach Client" />
+          <LISTITEM value="NOC" />
+          <LISTITEM value="iAndroid" />
+          <LISTITEM value="iWeb" />
+        </ALLOWEDVALUES>
+      </FIELD>
+      <FIELD name="Activity" refname="Microsoft.VSTS.Common.Activity" type="String" reportable="dimension">
+        <HELPTEXT>Type of work involved</HELPTEXT>
+        <SUGGESTEDVALUES expanditems="true">
+          <LISTITEM value="Development" />
+          <LISTITEM value="Testing" />
+          <LISTITEM value="Requirements" />
+          <LISTITEM value="Design" />
+          <LISTITEM value="Deployment" />
+          <LISTITEM value="Documentation" />
+        </SUGGESTEDVALUES>
+      </FIELD>
+      <FIELD name="STB Model" refname="Microsoft.VSTS.Common.STBModel" type="String" reportable="dimension">
+        <HELPTEXT>STB Model</HELPTEXT>
+        <SUGGESTEDVALUES expanditems="true">
+          <LISTITEM value="[Cisco ISB2001]" />
+          <LISTITEM value="[Cisco ISB6000]" />
+          <LISTITEM value="[Cisco ISB6320]" />
+          <LISTITEM value="[Cisco ISB7000]" />
+          <LISTITEM value="[Motorola VIP 2200]" />
+          <LISTITEM value="[Motorola VIP 2202E]" />
+          <LISTITEM value="[Motorola VIP 2232]" />
+          <LISTITEM value="[Motorola VIP 2262E]" />
+          <LISTITEM value="[Pace DiT7431]" />
+          <LISTITEM value="[SA Linksys KMM3010-SC/SZ-A]" />
+          <LISTITEM value="[SA Linksys KMM3210-Dev]" />
+          <LISTITEM value="[SA Linksys KMM3210-ES]" />
+          <LISTITEM value="[SA Linksys KMM3210-XX]" />
+          <LISTITEM value="[SA-IPN]" />
+          <LISTITEM value="[Samsung MR302/303]" />
+          <LISTITEM value="[Tatung STB 3xxx]" />
+          <LISTITEM value="[Tatung STB2000]" />
+          <LISTITEM value="[Tatung STB2300]" />
+          <LISTITEM value="[Tatung STB2310]" />
+          <LISTITEM value="[Tatung STB2520]" />
+          <LISTITEM value="[Tatung STB2540]" />
+          <LISTITEM value="[Tatung STB3210/3310]" />
+          <LISTITEM value="[BRCM B1]" />
+          <LISTITEM value="[Motorola VIP 1002E]" />
+          <LISTITEM value="[Motorola VIP 1200]" />
+          <LISTITEM value="[Motorola VIP 1200A]" />
+          <LISTITEM value="[Motorola VIP 1200AP]" />
+          <LISTITEM value="[Motorola VIP 1200E]" />
+          <LISTITEM value="[Motorola VIP 1208AP]" />
+          <LISTITEM value="[Motorola VIP 1216 Rev 1]" />
+          <LISTITEM value="[Motorola VIP 1216E]" />
+          <LISTITEM value="[Motorola VIP 1616]" />
+          <LISTITEM value="[Philips D1T9719/05]" />
+          <LISTITEM value="[SA Linksys KMM3210-HU.S5]" />
+          <LISTITEM value="[PACE IPH8000]" />
+          <LISTITEM value="[PACE IPH8005 (Sigma 865x)]" />
+        </SUGGESTEDVALUES>
+      </FIELD>
+      <FIELD name="PSCreatedBy" refname="MPB.PSCreatedBy" type="String">
+        <HELPTEXT>Product studio created by</HELPTEXT>
+      </FIELD>
+      <FIELD name="PSResolvedBy" refname="MPB.PSResolvedBy" type="String">
+        <HELPTEXT>Product studio resolved by</HELPTEXT>
+      </FIELD>
+      <FIELD name="PSClosedBy" refname="MPB.PSClosedBy" type="String">
+        <HELPTEXT>Product studio closed by</HELPTEXT>
+      </FIELD>
+      <FIELD name="BC Review" refname="Microsoft.VSTS.Common.BCReview" type="String">
+        <HELPTEXT>BC Review</HELPTEXT>
+        <SUGGESTEDVALUES expanditems="true">
+          <LISTITEM value="Done" />
+          <LISTITEM value="Investigate" />
+          <LISTITEM value="Requested" />
+          <LISTITEM value="Can't Regress" />
+          <LISTITEM value="Escalated" />
+        </SUGGESTEDVALUES>
+      </FIELD>
+      <FIELD name="Release Note Requirement" refname="Microsoft.VSTS.Common.ReleaseNoteRequirement" type="String">
+        <HELPTEXT>Release Note Requirement</HELPTEXT>
+        <SUGGESTEDVALUES expanditems="true">
+          <LISTITEM value="Fixed" />
+          <LISTITEM value="In Progress" />
+          <LISTITEM value="Done" />
+          <LISTITEM value="Release Note Needed" />
+          <LISTITEM value="Release Note Not Needed" />
+        </SUGGESTEDVALUES>
+      </FIELD>
+      <FIELD name="Doc Set Requirement" refname="Microsoft.VSTS.Common.DocSetRequirement" type="String">
+        <HELPTEXT>Doc Set Requirement</HELPTEXT>
+        <SUGGESTEDVALUES expanditems="true">
+          <LISTITEM value="In Progress" />
+          <LISTITEM value="Done" />
+          <LISTITEM value="Not Needed" />
+          <LISTITEM value="Needed" />
+          <LISTITEM value="Doc Bug Created" />
+        </SUGGESTEDVALUES>
+      </FIELD>
+      <FIELD name="Doc Set Release" refname="Microsoft.VSTS.Common.DocSetRelease" type="String">
+        <HELPTEXT>Doc Set Release</HELPTEXT>
+        <SUGGESTEDVALUES expanditems="true">
+          <GLOBALLIST name="MPB_Req_FeatureRelease" />
+        </SUGGESTEDVALUES>
+      </FIELD>
+      <FIELD name="Doc Set Owner" refname="Microsoft.VSTS.Common.DocSetOwner" type="String">
+        <HELPTEXT>Doc Set Owner</HELPTEXT>
+        <ALLOWEXISTINGVALUE />
+        <ALLOWEDVALUES expanditems="true" filteritems="excludegroups">
+          <LISTITEM value="[project]\Contributors" />
+        </ALLOWEDVALUES>
+      </FIELD>
+      <FIELD name="Client Release" refname="Microsoft.VSTS.Common.ClientRelease" type="String">
+        <ALLOWEDVALUES expanditems="true">
+          <GLOBALLIST name="Bug_PS_Client_Release" />
+        </ALLOWEDVALUES>
+      </FIELD>
+      <FIELD name="Client Flavor" refname="Microsoft.VSTS.Common.ClientFlavor" type="String">
+        <HELPTEXT>Client Flavor</HELPTEXT>
+        <ALLOWEDVALUES expanditems="true">
+          <LISTITEM value="Dev Signed CE Nondebug" />
+          <LISTITEM value="Dev Signed CE Release" />
+          <LISTITEM value="Dev Signed XBOX Release" />
+          <LISTITEM value="PC Client Nondebug" />
+          <LISTITEM value="PC Client Release" />
+          <LISTITEM value="PRS Signed CE Release" />
+          <LISTITEM value="PRS Signed XBOX Release" />
+        </ALLOWEDVALUES>
+      </FIELD>
+      <FIELD name="Server Release" refname="Microsoft.VSTS.Common.ServerRelease" type="String">
+        <HELPTEXT>Server Release</HELPTEXT>
+        <ALLOWEDVALUES expanditems="true">
+          <GLOBALLIST name="Bug_PS_Server_Release" />
+        </ALLOWEDVALUES>
+      </FIELD>
+      <FIELD name="Server Flavor" refname="Microsoft.VSTS.Common.ServerFlavor" type="String">
+        <HELPTEXT>Server Flavor</HELPTEXT>
+        <ALLOWEDVALUES expanditems="true">
+          <LISTITEM value="Installer" />
+          <LISTITEM value="Installer_Ship" />
+          <LISTITEM value="Installer_x64" />
+          <LISTITEM value="Installer_X64_Ship" />
+        </ALLOWEDVALUES>
+      </FIELD>
+      <FIELD name="Platform" refname="Microsoft.VSTS.Common.TargetPlatform" type="String">
+        <HELPTEXT>CPU</HELPTEXT>
+        <SUGGESTEDVALUES expanditems="true">
+          <LISTITEM value="X86" />
+          <LISTITEM value="XBOX360" />
+          <LISTITEM value="ARM" />
+          <LISTITEM value="BCM7405" />
+          <LISTITEM value="PC Client" />
+          <LISTITEM value="Sigma8634" />
+          <LISTITEM value="Sigma865X" />
+          <LISTITEM value="BCM7406" />
+          <LISTITEM value="BCM7241" />
+        </SUGGESTEDVALUES>
+      </FIELD>
+      <FIELD name="ZBB Exception" refname="Microsoft.VSTS.Common.ZBBException" type="String">
+        <SUGGESTEDVALUES expanditems="true">
+          <LISTITEM value="Yes" />
+          <LISTITEM value="No" />
+        </SUGGESTEDVALUES>
+      </FIELD>
+      <FIELD name="Reproducibility" refname="Microsoft.VSTS.Common.Reproducibility" type="String">
+        <HELPTEXT>Reproducibility</HELPTEXT>
+        <ALLOWEDVALUES expanditems="true">
+          <LISTITEM value="1" />
+          <LISTITEM value="2" />
+          <LISTITEM value="3" />
+          <LISTITEM value="4" />
+          <LISTITEM value="5" />
+          <LISTITEM value="10" />
+          <LISTITEM value="20" />
+          <LISTITEM value="UNKNOWN" />
+          <LISTITEM value="11" />
+          <LISTITEM value="13" />
+          <LISTITEM value="15" />
+          <LISTITEM value="17" />
+          <LISTITEM value="9" />
+          <LISTITEM value="6" />
+          <LISTITEM value="7" />
+          <LISTITEM value="8" />
+          <LISTITEM value="12" />
+          <LISTITEM value="14" />
+          <LISTITEM value="16" />
+          <LISTITEM value="18" />
+          <LISTITEM value="19" />
+          <LISTITEM value="Always" />
+          <LISTITEM value="About 5 in 10" />
+          <LISTITEM value="At least 1 in 10" />
+          <LISTITEM value="Less than 1 in 10" />
+          <LISTITEM value="Less than 5 in 10" />
+          <LISTITEM value="More than 5 in 10" />
+        </ALLOWEDVALUES>
+      </FIELD>
+      <FIELD name="Fixed In Change" refname="Microsoft.VSTS.Common.FixedInChange" type="String">
+        <HELPTEXT>Fixed In Change</HELPTEXT>
+      </FIELD>
+      <FIELD name="Test Case ID" refname="Microsoft.VSTS.Common.TestCaseId" type="String" reportable="dimension">
+        <HELPTEXT>MSTV Test Case Id</HELPTEXT>
+      </FIELD>
+      <FIELD name="Customer Affected" refname="Microsoft.VSTS.Common.CustomersAffected" type="String">
+        <HELPTEXT>Customer Affected</HELPTEXT>
+        <SUGGESTEDVALUES expanditems="true">
+          <LISTITEM value="[180-CimTel]" />
+          <LISTITEM value="[180-ResTel]" />
+          <LISTITEM value="[180-SureWest]" />
+          <LISTITEM value="[Alcatel]" />
+          <LISTITEM value="[ALU-AMX]" />
+          <LISTITEM value="[ALU-Antel]" />
+          <LISTITEM value="[ALU-CenturyLink]" />
+          <LISTITEM value="[ALU-Cinergy]" />
+          <LISTITEM value="[ALU-Du]" />
+          <LISTITEM value="[ALU-EPB]" />
+          <LISTITEM value="[ALU-HOL]" />
+          <LISTITEM value="[ALU-HT]" />
+          <LISTITEM value="[ALU-LUS]" />
+          <LISTITEM value="[ALU-MTSA]" />
+          <LISTITEM value="[ALU-NTELOS]" />
+          <LISTITEM value="[ALU-PortugalTelecom]" />
+          <LISTITEM value="[ALU-PRTC]" />
+          <LISTITEM value="[ALU-SaskTel]" />
+          <LISTITEM value="[ALU-SingTel]" />
+          <LISTITEM value="[ALU-SlovakTelecom]" />
+          <LISTITEM value="[ALU-Velton]" />
+          <LISTITEM value="[ALU-Vodafone]" />
+          <LISTITEM value="[ALU-Wind]" />
+          <LISTITEM value="[ALU-YouSee]" />
+          <LISTITEM value="[Beijing Netcom]" />
+          <LISTITEM value="[Bell Aliant]" />
+          <LISTITEM value="[Bell Canada]" />
+          <LISTITEM value="[British Telecom]" />
+          <LISTITEM value="[Chunghwa]" />
+          <LISTITEM value="[Codetel]" />
+          <LISTITEM value="[CT-Montenegro]" />
+          <LISTITEM value="[Deutsche Telekom]" />
+          <LISTITEM value="[EaTel]" />
+          <LISTITEM value="[GZTV]" />
+          <LISTITEM value="[Magyar Telekom]" />
+          <LISTITEM value="[Maktel]" />
+          <LISTITEM value="[Maxcom]" />
+          <LISTITEM value="[Moto-Farmers]" />
+          <LISTITEM value="[Moto-Paul Bunyan]" />
+          <LISTITEM value="[Moto-SRT]" />
+          <LISTITEM value="[Moto-Thunderbay]" />
+          <LISTITEM value="[Reliance]" />
+          <LISTITEM value="[Swisscom]" />
+          <LISTITEM value="[Synterra]" />
+          <LISTITEM value="[Telefonica-Brazil]" />
+          <LISTITEM value="[Telefonica-Chile]" />
+          <LISTITEM value="[Telefonica-Spain]" />
+          <LISTITEM value="[TELMEX]" />
+          <LISTITEM value="[Telus]" />
+          <LISTITEM value="[Vee TIME]" />
+          <LISTITEM value="[Vimpelcom]" />
+          <LISTITEM value="[ALU-Frontier]" />
+          <LISTITEM value="[ALU-Oi]" />
+          <LISTITEM value="[ATT]" />
+          <LISTITEM value="[Cisco-NS Comms]" />
+        </SUGGESTEDVALUES>
+      </FIELD>
+      <FIELD name="Superlab Known Failure" refname="Microsoft.VSTS.Common.SuperlabKnownFailure" type="String">
+        <HELPTEXT>Superlab Known Failure</HELPTEXT>
+        <SUGGESTEDVALUES expanditems="true">
+          <LISTITEM value="[Server5]" />
+          <LISTITEM value="[Server5sp1]" />
+          <LISTITEM value="[Server2.1SP1]" />
+        </SUGGESTEDVALUES>
+      </FIELD>
+      <FIELD name="Deploy Blocker" refname="Microsoft.VSTS.Common.DeployBlocker" type="String">
+        <HELPTEXT>Deploy Blocker</HELPTEXT>
+        <SUGGESTEDVALUES expanditems="true">
+          <LISTITEM value="Yes" />
+          <LISTITEM value="No" />
+        </SUGGESTEDVALUES>
+      </FIELD>
+      <FIELD name="Workaround" refname="Microsoft.VSTS.Common.Workaround" type="String">
+        <HELPTEXT>Workaround</HELPTEXT>
+        <ALLOWEDVALUES expanditems="true">
+          <LISTITEM value="1" />
+          <LISTITEM value="2" />
+          <LISTITEM value="0" />
+        </ALLOWEDVALUES>
+      </FIELD>
+      <FIELD name="Applicability" refname="Microsoft.VSTS.Common.Applicability" type="String">
+        <HELPTEXT>Applicability</HELPTEXT>
+        <ALLOWEDVALUES expanditems="true">
+          <LISTITEM value="1" />
+          <LISTITEM value="2" />
+          <LISTITEM value="4" />
+          <LISTITEM value="0" />
+        </ALLOWEDVALUES>
+      </FIELD>
+      <FIELD name="Business Impact" refname="IEB.Business.Impact" type="String">
+        <HELPTEXT>Business Impact</HELPTEXT>
+        <ALLOWEDVALUES expanditems="true">
+          <LISTITEM value="1" />
+          <LISTITEM value="2" />
+          <LISTITEM value="4" />
+          <LISTITEM value="0" />
+        </ALLOWEDVALUES>
+      </FIELD>
+      <FIELD name="Opportunity" refname="Microsoft.VSTS.Common.Opportunity" type="String">
+        <HELPTEXT>Opportunity</HELPTEXT>
+        <ALLOWEDVALUES expanditems="true">
+          <LISTITEM value="2" />
+          <LISTITEM value="4" />
+          <LISTITEM value="0" />
+        </ALLOWEDVALUES>
+      </FIELD>
+      <FIELD name="BAC Score" refname="Microsoft.VSTS.Common.BACScore" type="String" />
+      <FIELD name="SR Number" refname="Microsoft.VSTS.Common.SRNumber" type="String">
+        <HELPTEXT>SR Number</HELPTEXT>
+      </FIELD>
+      <FIELD name="Critsit" refname="Microsoft.VSTS.Common.Critsit" type="String">
+        <HELPTEXT>CritSit</HELPTEXT>
+      </FIELD>
+      <FIELD name="Account Manager" refname="IEB.Partner.AccountManager" type="String">
+        <HELPTEXT>Account Manager</HELPTEXT>
+        <ALLOWEXISTINGVALUE />
+        <ALLOWEDVALUES expanditems="true" filteritems="excludegroups">
+          <LISTITEM value="[project]\Contributors" />
+        </ALLOWEDVALUES>
+      </FIELD>
+      <FIELD name="Field Engineer" refname="Microsoft.VSTS.Common.FieldEngineer" type="String">
+        <HELPTEXT>Microsoft.VSTS.Common.FieldEngineer</HELPTEXT>
+        <ALLOWEXISTINGVALUE />
+        <ALLOWEDVALUES expanditems="true" filteritems="excludegroups">
+          <LISTITEM value="[project]\Contributors" />
+        </ALLOWEDVALUES>
+      </FIELD>
+      <FIELD name="Release Note Release" refname="Microsoft.VSTS.Common.ReleaseNoteRelease" type="String">
+        <HELPTEXT>Release Note Release</HELPTEXT>
+        <SUGGESTEDVALUES expanditems="true">
+          <GLOBALLIST name="MPB_Req_FeatureRelease" />
+        </SUGGESTEDVALUES>
+      </FIELD>
+      <FIELD name="Release Note Owner" refname="Microsoft.VSTS.Common.ReleaseNoteOwner" type="String">
+        <HELPTEXT>Release Note Owner</HELPTEXT>
+        <ALLOWEXISTINGVALUE />
+        <ALLOWEDVALUES expanditems="true" filteritems="excludegroups">
+          <LISTITEM value="[project]\Contributors" />
+        </ALLOWEDVALUES>
+      </FIELD>
+      <FIELD name="Release Note Description" refname="Microsoft.VSTS.Common.ReleaseNoteDescription" type="String">
+        <HELPTEXT>Release Note Description</HELPTEXT>
+      </FIELD>
+      <FIELD name="Doc Set Description" refname="Microsoft.VSTS.Common.DocSetDescription" type="String">
+        <HELPTEXT>Doc Set Description</HELPTEXT>
+      </FIELD>
+      <FIELD name="Fixed In Build" refname="Microsoft.VSTS.Common.FixedInBuild" type="String">
+        <HELPTEXT>Fixed in build</HELPTEXT>
+      </FIELD>
+      <FIELD name="Regression Release" refname="MPB.PSRegressionRelease" type="String">
+        <HELPTEXT>PS Regression Release</HELPTEXT>
+      </FIELD>
+      <FIELD name="TVProject" refname="MPB.PSTVProject" type="String">
+        <HELPTEXT>TV Project field of PS</HELPTEXT>
+      </FIELD>
+      <FIELD name="SubState" refname="MPB.PSSubState" type="String">
+        <HELPTEXT>PS Sub State</HELPTEXT>
+      </FIELD>
+      <FIELD name="PS Status" refname="Migration.PSStatus" type="String" />
+      <FIELD name="PSOpenedDate" refname="MPB.PSOpenedDate" type="DateTime" />
+      <FIELD name="PSClosedDate" refname="MPB.PSClosedDate" type="DateTime" />
+      <FIELD name="PSResolvedDate" refname="MPB.PSResolvedDate" type="DateTime" />
+      <FIELD name="RN Category" refname="Microsoft.VSTS.Common.RNCategory" type="String">
+        <ALLOWEXISTINGVALUE />
+        <ALLOWEDVALUES expanditems="true">
+          <GLOBALLIST name="MPB_RNCategory" />
+        </ALLOWEDVALUES>
+      </FIELD>
+      <FIELD name="ShowInFixedList" refname="Microsoft.VSTS.Common.ShowInFixedList" type="String">
+        <HELPTEXT>Show in fixed list</HELPTEXT>
+        <SUGGESTEDVALUES expanditems="true">
+          <LISTITEM value="Yes" />
+          <LISTITEM value="No" />
+          <LISTITEM value="Complete" />
+        </SUGGESTEDVALUES>
+      </FIELD>
+      <FIELD name="Environment" refname="MPB.PSEnvironment" type="String" />
+      <FIELD name="Last Known Good Build" refname="Microsoft.VSTS.Buld.LastKnownGoodBuild" type="String" />
+      <FIELD name="Server Ranking" refname="Microsoft.VSTS.Common.ServerRanking" type="String" />
+      <FIELD name="SE Fix Release" refname="Microsoft.VSTS.Common.SEFixRelease" type="String" />
+      <FIELD name="SE Fix Release Type" refname="Microsoft.VSTS.Common.SEFixReleaseType" type="String">
+        <SUGGESTEDVALUES expanditems="true">
+          <LISTITEM value="Client" />
+          <LISTITEM value="Configuration" />
+          <LISTITEM value="Tool" />
+          <LISTITEM value="Server Patch" />
+        </SUGGESTEDVALUES>
+      </FIELD>
+      <FIELD name="SE Fix Release ETA" refname="Microsoft.VSTS.Common.SEFixReleaseETA" type="DateTime" />
+      <FIELD name="SE Fix Release Date" refname="Microsoft.VSTS.Common.SEFixReleaseDate" type="DateTime" />
+      <FIELD name="Sustaining Status" refname="Microsoft.VSTS.Common.SustainingStatus" type="String">
+        <ALLOWEDVALUES expanditems="true">
+          <LISTITEM value="In Development" />
+          <LISTITEM value="BBPack built, out for review" />
+          <LISTITEM value="BBPack built, tested" />
+          <LISTITEM value="BBPack built, untested" />
+          <LISTITEM value="Dev: bug understood" />
+          <LISTITEM value="Dev: fix tested" />
+          <LISTITEM value="Dev: investigating problem" />
+          <LISTITEM value="Dev: Merge Request" />
+          <LISTITEM value="Dev: pending platform SDK merge" />
+          <LISTITEM value="Dev: testing fix" />
+          <LISTITEM value="Dev: working on fix" />
+          <LISTITEM value="In release branch, untested" />
+          <LISTITEM value="In tip of tree, tested" />
+          <LISTITEM value="In tip of tree, untested" />
+          <LISTITEM value="OEM Hardware" />
+          <LISTITEM value="OEM Software" />
+          <LISTITEM value="pending release vehicle" />
+          <LISTITEM value="PM: investigating problem" />
+          <LISTITEM value="Sustaining BC: Approved" />
+          <LISTITEM value="Sustaining BC: Pending approval" />
+          <LISTITEM value="Sustaining: Functional test complete" />
+          <LISTITEM value="Sustaining: In functional test" />
+          <LISTITEM value="Sustaining: In scalability test" />
+          <LISTITEM value="Sustaining: Pending prioritization" />
+          <LISTITEM value="Sustaining: Pending QFE gen" />
+          <LISTITEM value="Sustaining: Pending Release Note" />
+          <LISTITEM value="Sustaining: Pending release vehicle" />
+          <LISTITEM value="Sustaining: Pending repro steps" />
+          <LISTITEM value="Sustaining: Pending Test Assessment" />
+          <LISTITEM value="Sustaining: Pending Tester Assignment" />
+          <LISTITEM value="Sustaining: QFE released" />
+          <LISTITEM value="Sustaining: Release Note Input Needed" />
+          <LISTITEM value="Sustaining: Release Note Input Provided" />
+          <LISTITEM value="Sustaining: Scalability test complete" />
+          <LISTITEM value="TEST: Investigating Problem" />
+          <LISTITEM value="TEST: Merge Request" />
+          <LISTITEM value="Test: Resolution Verified, Adding cases" />
+          <LISTITEM value="TEST: Test Blocking Bug" />
+          <LISTITEM value="Testing in cage" />
+          <LISTITEM value="UX: Under Investigation" />
+          <LISTITEM value="WTT Updated" />
+          <LISTITEM value="SOC: Staging test complete: OK for merge" />
+          <LISTITEM value="SOC: Staging test in progress" />
+          <LISTITEM value="Sustaining: Build released" />
+          <LISTITEM value="Sustaining: Pending data or logs" />
+        </ALLOWEDVALUES>
+      </FIELD>
+      <FIELD name="Migrated Area" refname="Microsoft.VSTS.Common.Migrate.Area" type="String" reportable="dimension" />
+      <FIELD name="Migrated Iteration" refname="Microsoft.VSTS.Common.Migrate.Iteration" type="String" reportable="dimension" />
+      <FIELD name="Opened Build" refname="Microsoft.VSTS.Common.Migrate.OpenedBuild" type="String" reportable="dimension" />
+      <FIELD name="Pub Owner" refname="Microsoft.VSTS.Common.PubOwner" type="String" reportable="dimension">
+        <ALLOWEXISTINGVALUE />
+        <ALLOWEDVALUES expanditems="true" filteritems="excludegroups">
+          <LISTITEM value="[project]\Contributors" />
+        </ALLOWEDVALUES>
+      </FIELD>
+      <FIELD name="Migrate Id" refname="Microsoft.VSTS.Common.Migrate.Id" type="Integer" />
+      <FIELD name="Impact Statement" refname="Microsoft.VSTS.Common.ImpactStatement" type="String">
+        <WHENNOT field="Microsoft.VSTS.Common.Impact" value="">
+          <REQUIRED />
+        </WHENNOT>
+      </FIELD>
+      <FIELD name="Sub Issue" refname="Microsoft.VSTS.Common.SubIssue" type="String" reportable="dimension">
+        <WHEN field="Microsoft.VSTS.Common.Issue" value="">
+          <EMPTY />
+        </WHEN>
+        <WHEN field="Microsoft.VSTS.Common.Issue" value="Test">
+          <ALLOWEDVALUES expanditems="true">
+            <LISTITEM value="Performance" />
+            <LISTITEM value="Server" />
+            <LISTITEM value="Environment" />
+            <LISTITEM value="Code Coverage" />
+            <LISTITEM value="MTBF" />
+            <LISTITEM value="PATSAV" />
+            <LISTITEM value="MTP" />
+            <LISTITEM value="PATS" />
+          </ALLOWEDVALUES>
+        </WHEN>
+      </FIELD>
+      <FIELD name="Expose to Operator" refname="Microsoft.VSTS.Common.ExposeToOperator" type="String">
+        <ALLOWEDVALUES expanditems="true">
+          <LISTITEM value="Yes" />
+          <LISTITEM value="No" />
+        </ALLOWEDVALUES>
+      </FIELD>
+      <FIELD name="Service Management" refname="Microsoft.VSTS.Common.Service" type="String">
+        <ALLOWEDVALUES expanditems="true">
+          <LISTITEM value="Configuration" />
+          <LISTITEM value="Incident" />
+          <LISTITEM value="Problem" />
+          <LISTITEM value="Change" />
+          <LISTITEM value="Operability" />
+          <LISTITEM value="Service Assurance" />
+        </ALLOWEDVALUES>
+      </FIELD>
+      <FIELD name="UserID" refname="Microsoft.VSTS.Common.UserID" type="String" />
+      <FIELD name="AccountID" refname="Microsoft.VSTS.Common.AccountID" type="String" />
+      <FIELD name="Partner Triage" refname="Microsoft.VSTS.Common.PartnerTriage" type="String" reportable="dimension">
+        <SUGGESTEDVALUES expanditems="true">
+          <LISTITEM value="Rejected" />
+          <LISTITEM value="Approved" />
+          <LISTITEM value="Investigate" />
+          <LISTITEM value="Consider" />
+        </SUGGESTEDVALUES>
+      </FIELD>
+      <FIELD name="Additional Environments" refname="Microsoft.VSTS.Environment.Additional" type="String">
+        <SUGGESTEDVALUES expanditems="true">
+          <LISTITEM value="[Local]" />
+          <LISTITEM value="[Demo]" />
+          <LISTITEM value="[Integration]" />
+          <LISTITEM value="[DevTest]" />
+          <LISTITEM value="[PreProd]" />
+          <LISTITEM value="[ProdC]" />
+          <LISTITEM value="[MS DevTest]" />
+          <LISTITEM value="[MS PreProd]" />
+        </SUGGESTEDVALUES>
+      </FIELD>
+      <FIELD name="Devices" refname="Microsoft.VSTS.Common.Devices" type="String" reportable="dimension">
+        <HELPTEXT>Devices</HELPTEXT>
+        <SUGGESTEDVALUES expanditems="true">
+          <LISTITEM value="[STB]" />
+          <LISTITEM value="[All]" />
+          <LISTITEM value="[N/A]" />
+          <LISTITEM value="[PC]" />
+          <LISTITEM value="[iPad 2]" />
+          <LISTITEM value="[iPad 3]" />
+          <LISTITEM value="[iPad 4]" />
+          <LISTITEM value="[iPad Air]" />
+          <LISTITEM value="[Nexus 10]" />
+        </SUGGESTEDVALUES>
+        <REQUIRED />
+        <DEFAULT from="value" value="[N/A]" />
+      </FIELD>
+      <FIELD name="Device Specific" refname="Microsoft.VSTS.Common.DeviceSpecific" type="String" reportable="dimension">
+        <HELPTEXT>Is this issue device specific?</HELPTEXT>
+        <ALLOWEDVALUES expanditems="true">
+          <LISTITEM value="Yes" />
+          <LISTITEM value="No" />
+          <LISTITEM value="N/A" />
+        </ALLOWEDVALUES>
+      </FIELD>
+      <FIELD name="OS Version" refname="Microsoft.VSTS.Common.OSVersion" type="String" reportable="dimension">
+        <HELPTEXT>OS Version</HELPTEXT>
+        <ALLOWEDVALUES expanditems="true">
+          <LISTITEM value="Android 4.3" />
+          <LISTITEM value="Android 4.4" />
+          <LISTITEM value="iOS 7.0.6" />
+          <LISTITEM value="iOS 7.1" />
+        </ALLOWEDVALUES>
+      </FIELD>
+      <FIELD name="Web Client Build" refname="Microsoft.VSTS.Common.WebClientBuild" type="String" reportable="dimension" />
+      <FIELD name="Service Build" refname="Microsoft.VSTS.Common.ServiceBuild" type="String" reportable="dimension" />
+      <FIELD name="Shell Build" refname="Microsoft.VSTS.Common.ShellBuild" type="String" reportable="dimension" />
+      <FIELD name="Browser" refname="Microsoft.VSTS.Common.Browser" type="String" reportable="dimension">
+        <HELPTEXT>Browser</HELPTEXT>
+        <ALLOWEDVALUES expanditems="true">
+          <LISTITEM value="N/A" />
+          <LISTITEM value="Chrome v33" />
+          <LISTITEM value="Chrome v34" />
+          <LISTITEM value="IE 10" />
+        </ALLOWEDVALUES>
+        <DEFAULT from="value" value="N/A" />
+      </FIELD>
+      <FIELD name="Release Found In" refname="Microsoft.VSTS.Common.ReleaseFoundIn" type="String" reportable="dimension">
+        <SUGGESTEDVALUES expanditems="true">
+          <GLOBALLIST name="MPB_Req_FeatureRelease" />
+        </SUGGESTEDVALUES>
+      </FIELD>
+    </FIELDS>
+    <WORKFLOW>
+      <STATES>
+        <STATE value="Active">
+          <FIELDS>
+            <FIELD refname="Microsoft.VSTS.Common.ResolvedDate">
+              <EMPTY />
+            </FIELD>
+            <FIELD refname="Microsoft.VSTS.Common.ResolvedBy">
+              <EMPTY />
+            </FIELD>
+            <FIELD refname="Microsoft.VSTS.Common.DuplicateIDParent">
+              <EMPTY />
+            </FIELD>
+            <FIELD refname="Microsoft.VSTS.Build.IntegrationBuild">
+              <EMPTY />
+            </FIELD>
+            <FIELD refname="Microsoft.VSTS.Common.ClosedDate">
+              <EMPTY />
+            </FIELD>
+            <FIELD refname="Microsoft.VSTS.Common.ClosedBy">
+              <EMPTY />
+            </FIELD>
+            <FIELD refname="System.AssignedTo">
+              <ALLOWEXISTINGVALUE />
+              <ALLOWEDVALUES expanditems="true" filteritems="excludegroups">
+                <LISTITEM value="Active" />
+                <LISTITEM value="[project]\Contributors" />
+                <LISTITEM value="Triage" />
+                <LISTITEM value="Point Dev - SLS" />
+                <LISTITEM value="Point Dev - C$" />
+                <LISTITEM value="Point Dev - CI" />
+                <LISTITEM value="Point Dev - ES" />
+                <LISTITEM value="Point Dev - Paris" />
+                <LISTITEM value="Point Dev - Reach" />
+                <LISTITEM value="Point Dev - SF" />
+              </ALLOWEDVALUES>
+            </FIELD>
+          </FIELDS>
+        </STATE>
+        <STATE value="Resolved">
+          <FIELDS>
+            <FIELD refname="System.AssignedTo">
+              <ALLOWEXISTINGVALUE />
+              <ALLOWEDVALUES expanditems="true" filteritems="excludegroups">
+                <LISTITEM value="[project]\Contributors" />
+              </ALLOWEDVALUES>
+            </FIELD>
+            <FIELD refname="Microsoft.VSTS.Common.ActivatedDate">
+              <READONLY />
+            </FIELD>
+            <FIELD refname="Microsoft.VSTS.Common.ActivatedBy">
+              <READONLY />
+            </FIELD>
+            <FIELD refname="Microsoft.VSTS.Build.IntegrationBuild">
+              <DEFAULT from="value" value="&lt;None&gt;" />
+              <REQUIRED />
+            </FIELD>
+            <FIELD refname="Microsoft.VSTS.Common.ClosedDate">
+              <EMPTY />
+            </FIELD>
+            <FIELD refname="Microsoft.VSTS.Common.ClosedBy">
+              <EMPTY />
+            </FIELD>
+          </FIELDS>
+        </STATE>
+        <STATE value="Closed">
+          <FIELDS>
+            <FIELD refname="System.AssignedTo">
+              <ALLOWEXISTINGVALUE />
+              <ALLOWEDVALUES expanditems="true" filteritems="excludegroups">
+                <LISTITEM value="Closed" />
+              </ALLOWEDVALUES>
+            </FIELD>
+            <FIELD refname="Microsoft.VSTS.Common.ActivatedDate">
+              <READONLY />
+            </FIELD>
+            <FIELD refname="Microsoft.VSTS.Common.ActivatedBy">
+              <READONLY />
+            </FIELD>
+            <FIELD refname="Microsoft.VSTS.Common.ResolvedDate">
+              <READONLY />
+            </FIELD>
+            <FIELD refname="Microsoft.VSTS.Common.ResolvedBy">
+              <READONLY />
+            </FIELD>
+          </FIELDS>
+        </STATE>
+      </STATES>
+      <TRANSITIONS>
+        <TRANSITION from="" to="Active">
+          <REASONS>
+            <DEFAULTREASON value="New" />
+            <REASON value="Build Failure" />
+          </REASONS>
+          <FIELDS>
+            <FIELD refname="Microsoft.VSTS.Common.ActivatedDate">
+              <SERVERDEFAULT from="clock" />
+            </FIELD>
+            <FIELD refname="Microsoft.VSTS.Common.ActivatedBy">
+              <COPY from="currentuser" />
+            </FIELD>
+            <FIELD refname="System.AssignedTo">
+              <COPY from="value" value="Triage" />
+            </FIELD>
+          </FIELDS>
+        </TRANSITION>
+        <TRANSITION from="Active" to="Resolved">
+          <REASONS>
+            <DEFAULTREASON value="Resolved" />
+          </REASONS>
+          <FIELDS>
+            <FIELD refname="System.AssignedTo">
+              <COPY from="field" field="Microsoft.VSTS.Common.ActivatedBy" />
+            </FIELD>
+            <FIELD refname="Microsoft.VSTS.Common.ResolvedDate">
+              <SERVERDEFAULT from="clock" />
+            </FIELD>
+            <FIELD refname="Microsoft.VSTS.Common.ResolvedBy">
+              <COPY from="currentuser" />
+            </FIELD>
+            <FIELD refname="Microsoft.VSTS.Common.SubState">
+              <COPY from="value" value="Fixed" />
+            </FIELD>
+          </FIELDS>
+          <ACTIONS>
+            <ACTION value="Microsoft.VSTS.Actions.Checkin" />
+          </ACTIONS>
+        </TRANSITION>
+        <TRANSITION from="Resolved" to="Active">
+          <REASONS>
+            <DEFAULTREASON value="Reactivated" />
+          </REASONS>
+          <FIELDS>
+            <FIELD refname="System.AssignedTo">
+              <COPY from="field" field="Microsoft.VSTS.Common.ResolvedBy" />
+            </FIELD>
+            <FIELD refname="Microsoft.VSTS.Common.ActivatedDate">
+              <SERVERDEFAULT from="clock" />
+            </FIELD>
+            <FIELD refname="Microsoft.VSTS.Common.ActivatedBy">
+              <COPY from="currentuser" />
+            </FIELD>
+            <FIELD refname="Microsoft.VSTS.Common.SubState">
+              <COPY from="value" value="" />
+            </FIELD>
+          </FIELDS>
+        </TRANSITION>
+        <TRANSITION from="Resolved" to="Closed">
+          <REASONS>
+            <DEFAULTREASON value="Closed" />
+          </REASONS>
+          <FIELDS>
+            <FIELD refname="System.AssignedTo">
+              <COPY from="value" value="Closed" />
+            </FIELD>
+            <FIELD refname="Microsoft.VSTS.Common.ClosedDate">
+              <SERVERDEFAULT from="clock" />
+            </FIELD>
+            <FIELD refname="Microsoft.VSTS.Common.ClosedBy">
+              <COPY from="currentuser" />
+            </FIELD>
+          </FIELDS>
+        </TRANSITION>
+        <TRANSITION from="Closed" to="Active">
+          <REASONS>
+            <DEFAULTREASON value="Reactivated" />
+          </REASONS>
+          <FIELDS>
+            <FIELD refname="System.AssignedTo">
+              <COPY from="field" field="Microsoft.VSTS.Common.ResolvedBy" />
+            </FIELD>
+            <FIELD refname="Microsoft.VSTS.Common.ActivatedDate">
+              <SERVERDEFAULT from="clock" />
+            </FIELD>
+            <FIELD refname="Microsoft.VSTS.Common.ActivatedBy">
+              <COPY from="currentuser" />
+            </FIELD>
+            <FIELD refname="Microsoft.VSTS.Common.SubState">
+              <COPY from="value" value="" />
+            </FIELD>
+          </FIELDS>
+        </TRANSITION>
+      </TRANSITIONS>
+    </WORKFLOW>
+    <FORM>
+      <Layout>
+        <Group>
+          <Column PercentWidth="100">
+            <Group>
+              <Column PercentWidth="90">
+                <Control FieldName="System.Title" Type="FieldControl" Label="&amp;Title:" LabelPosition="Left" />
+              </Column>
+              <Column PercentWidth="10">
+                <Control FieldName="System.Id" Type="FieldControl" Label="Id:" LabelPosition="Left" ReadOnly="True" />
+              </Column>
+            </Group>
+            <Group>
+              <Column PercentWidth="75">
+                <Group Label="Classification (Divisional)">
+                  <Column PercentWidth="100">
+                    <Control FieldName="System.AreaPath" Type="WorkItemClassificationControl" Label="&amp;Area Path:" LabelPosition="Left" />
+                    <Control FieldName="System.IterationPath" Type="WorkItemClassificationControl" Label="Iteratio&amp;n Path:" LabelPosition="Left" />
+                    <Control FieldName="Microsoft.VSTS.Common.Release" Type="FieldControl" Label="Release:" LabelPosition="Left" />
+                    <Control FieldName="Microsoft.VSTS.Common.ReleaseFoundIn" Type="FieldControl" Label="Release Found In:" LabelPosition="Left" />
+                    <Control FieldName="Microsoft.VSTS.Common.ShipVehicle" Type="FieldControl" Label="Ship Vehicle:" LabelPosition="Left" />
+                  </Column>
+                </Group>
+              </Column>
+              <Column PercentWidth="25">
+                <Group Label="Classification (Team)">
+                  <Column PercentWidth="100">
+                    <Group>
+                      <Column PercentWidth="100">
+                        <Control FieldName="Microsoft.VSTS.Common.Team" Type="FieldControl" Label="Team:" LabelPosition="Left" />
+                        <Control FieldName="Microsoft.VSTS.Common.FeatureCrew" Type="FieldControl" Label="Scrum Team:" LabelPosition="Left" />
+                      </Column>
+                    </Group>
+                    <Group>
+                      <Column PercentWidth="50">
+                        <Control FieldName="Microsoft.VSTS.Common.Milestone" Type="FieldControl" Label="Milestone:      " LabelPosition="Left" />
+                      </Column>
+                      <Column PercentWidth="50">
+                        <Control FieldName="Microsoft.VSTS.Common.Sprint" Type="FieldControl" Label="Sprint:" LabelPosition="Left" />
+                      </Column>
+                    </Group>
+                    <Group>
+                      <Column PercentWidth="100">
+                        <Control FieldName="Microsoft.VSTS.Common.Keywords" Type="FieldControl" Label="Keywords:      " LabelPosition="Left" />
+                      </Column>
+                    </Group>
+                  </Column>
+                </Group>
+              </Column>
+            </Group>
+          </Column>
+        </Group>
+        <Group>
+          <Column PercentWidth="25">
+            <Group Label="Status">
+              <Column PercentWidth="100">
+                <Control FieldName="System.State" Type="FieldControl" Label="&amp;State:" LabelPosition="Left" />
+                <Control FieldName="Microsoft.VSTS.Common.SubState" Type="FieldControl" Label="Sub State:" LabelPosition="Left" />
+                <Control FieldName="System.AssignedTo" Type="FieldControl" Label="Assi&amp;gned to:" LabelPosition="Left" />
+                <Control FieldName="Microsoft.VSTS.Common.Issue" Type="FieldControl" Label="Issue:" LabelPosition="Left" />
+                <Control FieldName="Microsoft.VSTS.Common.SubIssue" Type="FieldControl" Label="Sub Issue:" LabelPosition="Left" />
+                <Control FieldName="Microsoft.VSTS.Common.Priority" Type="FieldControl" Label="Priority:" LabelPosition="Left" />
+                <Control FieldName="Microsoft.VSTS.Common.Severity" Type="FieldControl" Label="Severity:" LabelPosition="Left" NumberFormat="WholeNumbers" MaxLength="10" />
+                <Control FieldName="Microsoft.VSTS.MPT.Severity" Type="FieldControl" Label="Security Severity:" LabelPosition="Left" ReadOnly="True" NumberFormat="WholeNumbers" MaxLength="10" />
+                <Control FieldName="System.ChangedDate" Type="FieldControl" Label="Changed Date:" LabelPosition="Left" ReadOnly="True" />
+                <Control FieldName="Microsoft.VSTS.Common.Service" Type="FieldControl" Label="Service:" LabelPosition="Left" />
+                <Control FieldName="Microsoft.VSTS.Common.Impact" Type="FieldControl" Label="Impacted:" LabelPosition="Left" />
+                <Control FieldName="Microsoft.VSTS.Common.ExposeToOperator" Type="FieldControl" Label="Expose To Operators:" LabelPosition="Left" />
+              </Column>
+            </Group>
+          </Column>
+          <Column PercentWidth="25">
+            <Group Label="Opened">
+              <Column PercentWidth="100">
+                <Control FieldName="Microsoft.VSTS.Common.ActivatedDate" Type="FieldControl" Label="Activated Date:" LabelPosition="Left" ReadOnly="True" />
+                <Control FieldName="Microsoft.VSTS.Common.ActivatedBy" Type="FieldControl" Label="Activated By:" LabelPosition="Left" ReadOnly="True" />
+                <Control FieldName="Microsoft.VSTS.Common.HowFoundCategory" Type="FieldControl" Label="How Found Category:" LabelPosition="Left" />
+                <Control FieldName="Microsoft.VSTS.MPT.Source" Type="FieldControl" Label="Source:" LabelPosition="Left" />
+                <Control FieldName="Microsoft.VSTS.MPT.SourceID" Type="FieldControl" Label="Source ID:" LabelPosition="Left" />
+                <Control FieldName="Microsoft.VSTS.Build.FoundIn" Type="FieldControl" Label="Found In:" LabelPosition="Left" />
+                <Control FieldName="Microsoft.VSTS.Branch.FoundIn" Type="FieldControl" Label="Found In Branch:" LabelPosition="Left" />
+                <Control FieldName="Microsoft.VSTS.Environment.FoundIn" Type="FieldControl" Label="Found in Environment:" LabelPosition="Left" />
+                <Control FieldName="Microsoft.VSTS.Common.Language" Type="FieldControl" Label="Language:" LabelPosition="Left" />
+                <Control FieldName="Microsoft.VSTS.Common.Country" Type="FieldControl" Label="Country:" LabelPosition="Left" />
+                <Control FieldName="Microsoft.VSTS.Common.Regression" Type="FieldControl" Label="Regression:" LabelPosition="Left" />
+              </Column>
+            </Group>
+          </Column>
+          <Column PercentWidth="25">
+            <Group>
+              <Column PercentWidth="100">
+                <Group>
+                  <Column PercentWidth="100">
+                    <Group Label="Resolved">
+                      <Column PercentWidth="100">
+                        <Control FieldName="Microsoft.VSTS.Common.ResolvedDate" Type="FieldControl" Label="Resolved Date:" LabelPosition="Left" ReadOnly="True" />
+                        <Control FieldName="Microsoft.VSTS.Common.ResolvedBy" Type="FieldControl" Label="Resolved By:" LabelPosition="Left" ReadOnly="True" />
+                        <Control FieldName="Microsoft.VSTS.Build.IntegrationBuild" Type="FieldControl" Label="Integration Build:" LabelPosition="Left" />
+                        <Control FieldName="Microsoft.VSTS.Common.DuplicateIDParent" Type="FieldControl" Label="Duplicate ID :" LabelPosition="Left" />
+                      </Column>
+                    </Group>
+                  </Column>
+                </Group>
+                <Group>
+                  <Column PercentWidth="100">
+                    <Group Label="Closed">
+                      <Column PercentWidth="100">
+                        <Control FieldName="Microsoft.VSTS.Common.ClosedDate" Type="FieldControl" Label="Date:" LabelPosition="Left" ReadOnly="True" />
+                        <Control FieldName="Microsoft.VSTS.Common.ClosedBy" Type="FieldControl" Label="By:" LabelPosition="Left" ReadOnly="True" />
+                      </Column>
+                    </Group>
+                  </Column>
+                </Group>
+              </Column>
+            </Group>
+          </Column>
+          <Column PercentWidth="25">
+            <Group>
+              <Column PercentWidth="100">
+                <Group>
+                  <Column PercentWidth="100">
+                    <Group Label="Project">
+                      <Column PercentWidth="100">
+                        <Control FieldName="Microsoft.VSTS.Common.Triage" Type="FieldControl" Label="Triage:" LabelPosition="Left" />
+                        <Control FieldName="Microsoft.VSTS.Common.ShiproomTriage" Type="FieldControl" Label="Shiproom Triage" LabelPosition="Left" />
+                        <Control FieldName="Microsoft.VSTS.Common.Blocking" Type="FieldControl" Label="Blocking:" LabelPosition="Left" />
+                        <Control FieldName="Microsoft.VSTS.Common.FixByDate" Type="DateTimeControl" Label="Fix By Date:" LabelPosition="Left" />
+                        <Control FieldName="Microsoft.VSTS.Common.StackRank" Type="FieldControl" Label="Stack Ran&amp;k:" LabelPosition="Left" NumberFormat="WholeNumbers" MaxLength="10" />
+                        <Control FieldName="Microsoft.VSTS.Common.HitCount" Type="FieldControl" Label="Hit Count:" LabelPosition="Left" />
+                        <Control FieldName="Microsoft.VSTS.Common.PartnerTriage" Type="FieldControl" Label="Partner Triage:" LabelPosition="Left" />
+                      </Column>
+                    </Group>
+                  </Column>
+                </Group>
+                <Group>
+                  <Column PercentWidth="100">
+                    <Group Label="Estimate (Hours)">
+                      <Column PercentWidth="100">
+                        <Control FieldName="Microsoft.VSTS.Scheduling.OriginalEstimate" Type="FieldControl" Label="Original Estimate:" LabelPosition="Left" />
+                        <Control FieldName="Microsoft.VSTS.Scheduling.CompletedWork" Type="FieldControl" Label="Completed Work:" LabelPosition="Left" />
+                        <Control FieldName="Microsoft.VSTS.Scheduling.RemainingWork" Type="FieldControl" Label="Remaining Work:" LabelPosition="Left" />
+                      </Column>
+                    </Group>
+                  </Column>
+                </Group>
+              </Column>
+            </Group>
+          </Column>
+        </Group>
+        <TabGroup>
+          <Tab Label="Details">
+            <Group>
+              <Column PercentWidth="50">
+                <Control FieldName="System.Description" Type="HtmlFieldControl" Label="Des&amp;cription/Customer Impact:" LabelPosition="Top" />
+              </Column>
+              <Column PercentWidth="50">
+                <Control FieldName="System.History" Type="WorkItemLogControl" Label="&amp;History:" LabelPosition="Top" />
+              </Column>
+            </Group>
+          </Tab>
+          <Tab Label="Repro Steps">
+            <Group>
+              <Column PercentWidth="100">
+                <Control FieldName="Microsoft.VSTS.TCM.ReproSteps" Type="HtmlFieldControl" Label="Repro Steps/Actual Outcome/Expected Outcome:" LabelPosition="Top" Dock="Fill" MinimumSize="(100,200)" />
+              </Column>
+            </Group>
+          </Tab>
+          <Tab Label="Feature/Story Link">
+            <Control Type="LinksControl" Label="Parent Feature/Story of this Bug:" LabelPosition="Top" Name="Hierarchy_Parent">
+              <LinksControlOptions>
+                <LinkColumns>
+                  <LinkColumn RefName="System.ID" />
+                  <LinkColumn RefName="System.WorkItemType" />
+                  <LinkColumn RefName="System.Title" />
+                  <LinkColumn RefName="System.AssignedTo" />
+                  <LinkColumn RefName="System.State" />
+                  <LinkColumn RefName="Microsoft.VSTS.Scheduling.RemainingWork" />
+                  <LinkColumn RefName="Microsoft.VSTS.Scheduling.CompletedWork" />
+                  <LinkColumn LinkAttribute="System.Links.Comment" />
+                </LinkColumns>
+                <WorkItemLinkFilters FilterType="include">
+                  <Filter LinkType="System.LinkTypes.Hierarchy" FilterOn="reversename" />
+                </WorkItemLinkFilters>
+                <ExternalLinkFilters FilterType="excludeAll" />
+                <WorkItemTypeFilters FilterType="include">
+                  <Filter WorkItemType="Feature" />
+                  <Filter WorkItemType="Story" />
+                </WorkItemTypeFilters>
+              </LinksControlOptions>
+            </Control>
+          </Tab>
+          <Tab Label="Dependency Links">
+            <Group>
+              <Column PercentWidth="100">
+                <Group Label="Bug which must be resolved before this bug can be fixed" Margin="(0,0,0,10)">
+                  <Column PercentWidth="100">
+                    <Control Type="LinksControl" Label="" LabelPosition="Top" Name="Tree_Dependent_DependentOn_Parent">
+                      <LinksControlOptions>
+                        <LinkColumns>
+                          <LinkColumn RefName="System.ID" />
+                          <LinkColumn RefName="System.WorkItemType" />
+                          <LinkColumn RefName="System.Title" />
+                          <LinkColumn RefName="System.AssignedTo" />
+                          <LinkColumn RefName="System.State" />
+                          <LinkColumn RefName="System.ChangedDate" />
+                          <LinkColumn LinkAttribute="System.Links.Comment" />
+                        </LinkColumns>
+                        <WorkItemLinkFilters FilterType="include">
+                          <Filter LinkType="Microsoft.VSTS.Common.Dependent" FilterOn="reversename" />
+                        </WorkItemLinkFilters>
+                        <ExternalLinkFilters FilterType="excludeAll" />
+                        <WorkItemTypeFilters FilterType="include">
+                          <Filter WorkItemType="Bug" />
+                        </WorkItemTypeFilters>
+                      </LinksControlOptions>
+                    </Control>
+                  </Column>
+                </Group>
+                <Group Label="Other bugs waiting on this bug before they can be fixed" Margin="(0,0,0,10)">
+                  <Column PercentWidth="100">
+                    <Control Type="LinksControl" Label="" LabelPosition="Top" Name="Tree_Dependent_HasDependent_Child">
+                      <LinksControlOptions>
+                        <LinkColumns>
+                          <LinkColumn RefName="System.ID" />
+                          <LinkColumn RefName="System.WorkItemType" />
+                          <LinkColumn RefName="System.Title" />
+                          <LinkColumn RefName="System.AssignedTo" />
+                          <LinkColumn RefName="System.State" />
+                          <LinkColumn RefName="System.ChangedDate" />
+                          <LinkColumn LinkAttribute="System.Links.Comment" />
+                        </LinkColumns>
+                        <WorkItemLinkFilters FilterType="include">
+                          <Filter LinkType="Microsoft.VSTS.Common.Dependent" FilterOn="forwardname" />
+                        </WorkItemLinkFilters>
+                        <ExternalLinkFilters FilterType="excludeAll" />
+                        <WorkItemTypeFilters FilterType="include">
+                          <Filter WorkItemType="Bug" />
+                        </WorkItemTypeFilters>
+                      </LinksControlOptions>
+                    </Control>
+                  </Column>
+                </Group>
+              </Column>
+            </Group>
+          </Tab>
+          <Tab Label="Devices">
+            <Group Label="">
+              <Column PercentWidth="100">
+                <Group>
+                  <Column PercentWidth="100">
+                    <Group Label="TV3">
+                      <Column PercentWidth="100">
+                        <Control FieldName="Microsoft.VSTS.Common.UserId" Type="FieldControl" Label="User ID:" LabelPosition="Left" />
+                        <Control FieldName="Microsoft.VSTS.Common.AccountID" Type="FieldControl" Label="Account ID:" LabelPosition="Left" />
+                      </Column>
+                    </Group>
+                    <Group Label="OPENED">
+                      <Column PercentWidth="100">
+                        <Control FieldName="Microsoft.VSTS.Common.DeviceSpecific" Type="FieldControl" Label="Device Specific:" LabelPosition="Left" />
+                        <Control FieldName="Microsoft.VSTS.Common.OSVersion" Type="FieldControl" Label="OS Version:" LabelPosition="Left" />
+                        <Control FieldName="Microsoft.VSTS.Common.Browser" Type="FieldControl" Label="Browser:" LabelPosition="Left" />
+                        <Control FieldName="Microsoft.VSTS.Common.WebClientBuild" Type="FieldControl" Label="Web Client Build:" LabelPosition="Left" />
+                        <Control FieldName="Microsoft.VSTS.Common.ServiceBuild" Type="FieldControl" Label="Service Build:" LabelPosition="Left" />
+                        <Control FieldName="Microsoft.VSTS.Common.ShellBuild" Type="FieldControl" Label="Shell Build:" LabelPosition="Left" />
+                        <Control FieldName="Microsoft.VSTS.Common.Devices" Type="MultiValueControl" Label="Device(s):" LabelPosition="Left">
+                          <CustomControlOptions />
+                        </Control>
+                      </Column>
+                    </Group>
+                  </Column>
+                </Group>
+              </Column>
+              <Column PercentWidth="100">
+                <Group>
+                  <Column PercentWidth="100">
+                    <Control FieldName="Microsoft.VSTS.Common.ImpactStatement" Type="HtmlFieldControl" Label="Impact Statement:" LabelPosition="Top" Dock="Fill" />
+                  </Column>
+                </Group>
+              </Column>
+            </Group>
+          </Tab>
+          <Tab Label="PS">
+            <Group>
+              <Column PercentWidth="100">
+                <Group Label="Opened">
+                  <Column PercentWidth="100">
+                    <Control FieldName="Microsoft.VSTS.Common.ClientRelease" Type="FieldControl" Label="Client Release:" LabelPosition="Left" />
+                    <Control FieldName="Microsoft.VSTS.Common.ClientFlavor" Type="FieldControl" Label="Client Flavor:" LabelPosition="Left" />
+                    <Control FieldName="Microsoft.VSTS.Common.STBModel" Type="MultiValueControl" Label="STB Model:" LabelPosition="Left">
+                      <CustomControlOptions />
+                    </Control>
+                    <Control FieldName="Microsoft.VSTS.Common.ServerRelease" Type="FieldControl" Label="Server Release:" LabelPosition="Left" />
+                    <Control FieldName="Microsoft.VSTS.Common.ServerFlavor" Type="FieldControl" Label="Server Flavor:" LabelPosition="Left" />
+                    <Control FieldName="Microsoft.VSTS.Buld.LastKnownGoodBuild" Type="FieldControl" Label="Last Known Good Build:" LabelPosition="Left" />
+                  </Column>
+                </Group>
+              </Column>
+              <Column PercentWidth="100">
+                <Group Label="Project">
+                  <Column PercentWidth="100">
+                    <Control FieldName="Microsoft.VSTS.Common.TargetPlatform" Type="FieldControl" Label="Platform (CPU):" LabelPosition="Left" />
+                    <Control FieldName="Microsoft.VSTS.Common.ZBBException" Type="FieldControl" Label="ZBB Exception:" LabelPosition="Left" />
+                    <Control FieldName="MPB.NotifyList" Type="FieldControl" Label="Notify List:" LabelPosition="Left" />
+                    <Control FieldName="Microsoft.VSTS.Common.BCReview" Type="FieldControl" Label="BC Review:" LabelPosition="Left" />
+                    <Control FieldName="Microsoft.VSTS.Common.Reproducibility" Type="FieldControl" Label="Reproducibility:" LabelPosition="Left" />
+                    <Control FieldName="Microsoft.VSTS.Common.EstimatedCloseDate" Type="DateTimeControl" Label="ETA: " LabelPosition="Left" />
+                    <Control FieldName="Microsoft.VSTS.Common.TestCaseId" Type="FieldControl" Label="TestCase:" LabelPosition="Left" />
+                    <Control FieldName="Microsoft.VSTS.Common.CustomersAffected" Type="MultiValueControl" Label="Customers Affected:" LabelPosition="Left">
+                      <CustomControlOptions />
+                    </Control>
+                    <Control FieldName="Microsoft.VSTS.Common.SuperlabKnownFailure" Type="MultiValueControl" Label="Superlab Known Failure:" LabelPosition="Left">
+                      <CustomControlOptions />
+                    </Control>
+                  </Column>
+                </Group>
+              </Column>
+            </Group>
+            <Group>
+              <Column PercentWidth="100">
+                <Group>
+                  <Column PercentWidth="100">
+                    <Control FieldName="MPB.PSEnvironment" Type="FieldControl" Label="Environment:" LabelPosition="Left" />
+                  </Column>
+                </Group>
+                <Group Label="Migration">
+                  <Column PercentWidth="100">
+                    <Control FieldName="MPB.PSSubState" Type="FieldControl" Label="Sub Status:" LabelPosition="Left" />
+                    <Control FieldName="MPB.PSTVProject" Type="FieldControl" Label="TV Project:" LabelPosition="Left" />
+                    <Control FieldName="MPB.PSRegressionRelease" Type="FieldControl" Label="Regression Release:" LabelPosition="Left" />
+                    <Control FieldName="Microsoft.VSTS.Common.Resolution" Type="FieldControl" Label="Resolution:" LabelPosition="Left" />
+                    <Control FieldName="MPB.PSCreatedBy" Type="FieldControl" Label="PS Created By:" LabelPosition="Left" />
+                    <Control FieldName="MPB.PSClosedBy" Type="FieldControl" Label="PS Closed By:" LabelPosition="Left" />
+                    <Control FieldName="MPB.PSResolvedBy" Type="FieldControl" Label="PS Resolved By:" LabelPosition="Left" />
+                    <Control FieldName="MPB.PSOpenedDate" Type="FieldControl" Label="PS Opened Date:" LabelPosition="Left" />
+                    <Control FieldName="MPB.PSResolvedDate" Type="FieldControl" Label="PS Resolved Date:" LabelPosition="Left" />
+                    <Control FieldName="MPB.PSClosedDate" Type="FieldControl" Label="PS Closed Date:" LabelPosition="Left" />
+                    <Control FieldName="Migration.PSStatus" Type="FieldControl" Label="PS Status:" LabelPosition="Left" />
+                    <Control FieldName="MPB.BugTree" Type="FieldControl" Label="PS Path:" LabelPosition="Left" />
+                    <Control FieldName="MPB.PSBugId" Type="FieldControl" Label="PS Migration Bug ID:" LabelPosition="Left" />
+                    <Control FieldName="Microsoft.VSTS.Common.Migrate.Id" Type="FieldControl" Label="Migrate ID:" LabelPosition="Left" />
+                    <Control FieldName="MPB.ConversationID" Type="FieldControl" Label="Conversation ID:" LabelPosition="Left" />
+                  </Column>
+                </Group>
+              </Column>
+              <Column PercentWidth="100">
+                <Group Label="Resolved">
+                  <Column PercentWidth="100">
+                    <Control FieldName="Microsoft.VSTS.Common.FixedInChange" Type="FieldControl" Label="Fixed In Change:" LabelPosition="Left" />
+                  </Column>
+                </Group>
+                <Group Label="Telefonica">
+                  <Column PercentWidth="100">
+                    <Control FieldName="Microsoft.VSTS.Common.Migrate.Iteration" Type="FieldControl" Label="Iteration:" LabelPosition="Left" />
+                    <Control FieldName="Microsoft.VSTS.Common.Migrate.Area" Type="FieldControl" Label="Area:" LabelPosition="Left" />
+                    <Control FieldName="Microsoft.VSTS.Common.Migrate.OpenedBuild" Type="FieldControl" Label="Opened Build:" LabelPosition="Left" />
+                  </Column>
+                </Group>
+              </Column>
+            </Group>
+          </Tab>
+          <Tab Label="Documentation">
+            <Group Label="">
+              <Column PercentWidth="100">
+                <Group Label="Doc Set Change">
+                  <Column PercentWidth="100">
+                    <Control FieldName="Microsoft.VSTS.Common.DocSetRequirement" Type="FieldControl" Label="Requirement" LabelPosition="Left" />
+                    <Control FieldName="Microsoft.VSTS.Common.DocSetRelease" Type="FieldControl" Label="Release" LabelPosition="Left" />
+                    <Control FieldName="Microsoft.VSTS.Common.DocSetOwner" Type="FieldControl" Label="Owner" LabelPosition="Left" />
+                    <Control FieldName="Microsoft.VSTS.Common.DocSetDescription" Type="HtmlFieldControl" Label="Description" LabelPosition="Left" />
+                  </Column>
+                </Group>
+              </Column>
+              <Column PercentWidth="100">
+                <Group Label="Release Note">
+                  <Column PercentWidth="100">
+                    <Control FieldName="Microsoft.VSTS.Common.ReleaseNoteRequirement" Type="FieldControl" Label="Requirement" LabelPosition="Left" />
+                    <Control FieldName="Microsoft.VSTS.Common.ShowInFixedList" Type="FieldControl" Label="Show in Fixed List:" LabelPosition="Left" />
+                    <Control FieldName="Microsoft.VSTS.Common.ReleaseNoteRelease" Type="FieldControl" Label="Release" LabelPosition="Left" />
+                    <Control FieldName="Microsoft.VSTS.Common.ReleaseNoteOwner" Type="FieldControl" Label="Owner" LabelPosition="Left" />
+                    <Control FieldName="Microsoft.VSTS.Common.ReleaseNoteDescription" Type="HtmlFieldControl" Label="Description" LabelPosition="Left" />
+                    <Control FieldName="Microsoft.VSTS.Common.RNCategory" Type="FieldControl" Label="RN Category:" LabelPosition="Left" />
+                  </Column>
+                </Group>
+              </Column>
+            </Group>
+          </Tab>
+          <Tab Label="Field">
+            <Group>
+              <Column PercentWidth="100">
+                <Group Label="Ranking">
+                  <Column PercentWidth="45">
+                    <Control FieldName="Microsoft.VSTS.Common.DeployBlocker" Type="FieldControl" Label="DeployBlocker:" LabelPosition="Left" />
+                    <Control FieldName="Microsoft.VSTS.Common.Workaround" Type="FieldControl" Label="Workaround:" LabelPosition="Left" />
+                    <Control FieldName="Microsoft.VSTS.Common.Applicability" Type="FieldControl" Label="Applicability:" LabelPosition="Left" />
+                    <Control FieldName="IEB.Business.Impact" Type="FieldControl" Label="Impact:" LabelPosition="Left" />
+                    <Control FieldName="Microsoft.VSTS.Common.Opportunity" Type="FieldControl" Label="Opportunity:" LabelPosition="Left" />
+                    <Control FieldName="Microsoft.VSTS.Common.BACScore" Type="FieldControl" Label="Field BAC Score:" LabelPosition="Left" />
+                  </Column>
+                </Group>
+                <Group Label="Sustaining">
+                  <Column PercentWidth="100">
+                    <Control FieldName="Microsoft.VSTS.Common.SRNumber" Type="FieldControl" Label="SR Number:" LabelPosition="Left" />
+                    <Control FieldName="Microsoft.VSTS.Common.Critsit" Type="FieldControl" Label="Critsit:" LabelPosition="Left" />
+                    <Control FieldName="Microsoft.VSTS.Common.SustainingStatus" Type="FieldControl" Label="Sustaining Status:" LabelPosition="Left" />
+                  </Column>
+                </Group>
+              </Column>
+              <Column PercentWidth="100">
+                <Group Label="SE Fix">
+                  <Column PercentWidth="45">
+                    <Control FieldName="Microsoft.VSTS.Common.SEFixRelease" Type="FieldControl" Label="Fix Release:" LabelPosition="Left" />
+                    <Control FieldName="Microsoft.VSTS.Common.SEFixReleaseType" Type="FieldControl" Label="Release Type:" LabelPosition="Left" />
+                    <Control FieldName="Microsoft.VSTS.Common.SEFixReleaseETA" Type="DateTimeControl" Label="Release ETA:" LabelPosition="Left" />
+                    <Control FieldName="Microsoft.VSTS.Common.SEFixReleaseDate" Type="DateTimeControl" Label="Release Date:" LabelPosition="Left" />
+                  </Column>
+                </Group>
+                <Group Label="Priority">
+                  <Column PercentWidth="100">
+                    <Control FieldName="Microsoft.VSTS.Common.ServerRanking" Type="FieldControl" Label="Server Ranking:" LabelPosition="Left" />
+                  </Column>
+                </Group>
+                <Group Label="Additional Environments">
+                  <Column PercentWidth="100">
+                    <Control FieldName="Microsoft.VSTS.Environment.Additional" Type="MultiValueControl" Label="Addtional Environs:" LabelPosition="Left">
+                      <CustomControlOptions />
+                    </Control>
+                  </Column>
+                </Group>
+              </Column>
+            </Group>
+          </Tab>
+          <Tab Label="Security">
+            <Group>
+              <Column PercentWidth="50">
+                <Group Label="Security Bug Data">
+                  <Column PercentWidth="100">
+                    <Control FieldName="Microsoft.VSTS.MPT.Cause" Type="FieldControl" Label="Security Cause:" LabelPosition="Top" />
+                    <Control FieldName="Microsoft.VSTS.MPT.Effect" Type="FieldControl" Label="Security Effect:" LabelPosition="Top" />
+                    <Control FieldName="Microsoft.VSTS.MPT.Scope" Type="FieldControl" Label="Security Effect Scope:" LabelPosition="Top" />
+                  </Column>
+                </Group>
+              </Column>
+              <Column PercentWidth="50" />
+            </Group>
+          </Tab>
+          <Tab Label="System Info">
+            <Control FieldName="Microsoft.VSTS.TCM.SystemInfo" Type="HtmlFieldControl" Label="System I&amp;nfo:" LabelPosition="Top" Dock="Fill" />
+          </Tab>
+          <Tab Label="Test Case Links">
+            <Control Type="LinksControl" Label="Test &amp;Cases testing this Bug:" LabelPosition="Top" Name="TestedBy">
+              <LinksControlOptions>
+                <LinkColumns>
+                  <LinkColumn RefName="System.ID" />
+                  <LinkColumn RefName="System.WorkItemType" />
+                  <LinkColumn RefName="System.Title" />
+                  <LinkColumn RefName="System.AssignedTo" />
+                  <LinkColumn RefName="System.State" />
+                  <LinkColumn LinkAttribute="System.Links.Comment" />
+                </LinkColumns>
+                <WorkItemLinkFilters FilterType="include">
+                  <Filter LinkType="Microsoft.VSTS.Common.TestedBy" FilterOn="forwardname" />
+                </WorkItemLinkFilters>
+                <ExternalLinkFilters FilterType="excludeAll" />
+                <WorkItemTypeFilters FilterType="include">
+                  <Filter WorkItemType="Test Case" />
+                </WorkItemTypeFilters>
+              </LinksControlOptions>
+            </Control>
+          </Tab>
+          <Tab Label="Contacts">
+            <Group>
+              <Column PercentWidth="45">
+                <Control FieldName="IEB.TSB.PMOwner" Type="FieldControl" Label="PM Owner:" LabelPosition="Left" />
+                <Control FieldName="Microsoft.VSTS.Common.QGDevelopmentOwner" Type="FieldControl" Label="Dev Owner:" LabelPosition="Left" />
+                <Control FieldName="Microsoft.VSTS.Common.QGTestOwner" Type="FieldControl" Label="Test Owner:" LabelPosition="Left" />
+                <Control FieldName="Microsoft.VSTS.Common.PubOwner" Type="FieldControl" Label="Pub Owner:" LabelPosition="Left" />
+                <Control FieldName="Microsoft.VSTS.Common.QGDesignOwner" Type="FieldControl" Label="Design Owner:" LabelPosition="Left" />
+                <Control FieldName="Microsoft.VSTS.Common.QGSecurityReviewOwner" Type="FieldControl" Label="Security Review Owner:" LabelPosition="Left" />
+                <Control FieldName="Microsoft.VSTS.Common.QGLocalizationOwner" Type="FieldControl" Label="Localization Owner:" LabelPosition="Left" />
+                <Control FieldName="Microsoft.VSTS.Common.QGOperationsOwner" Type="FieldControl" Label="Operations Owner:" LabelPosition="Left" />
+                <Control FieldName="IEB.Partner.AccountManager" Type="FieldControl" Label="Account Manager:" LabelPosition="Left" />
+                <Control FieldName="Microsoft.VSTS.Common.EscalationAlias" Type="FieldControl" Label="Escalation Engineer:" LabelPosition="Left" />
+                <Control FieldName="Microsoft.VSTS.Common.FieldEngineer" Type="FieldControl" Label="Field Engineer:" LabelPosition="Left" />
+              </Column>
+              <Column PercentWidth="100" />
+            </Group>
+          </Tab>
+          <Tab Label="All Links">
+            <Control Type="LinksControl" LabelPosition="Top" Name="GeneralLinks">
+              <LinksControlOptions>
+                <LinkColumns>
+                  <LinkColumn RefName="System.ID" />
+                  <LinkColumn RefName="System.WorkItemType" />
+                  <LinkColumn RefName="System.Title" />
+                  <LinkColumn RefName="System.AssignedTo" />
+                  <LinkColumn RefName="System.State" />
+                  <LinkColumn LinkAttribute="System.Links.Comment" />
+                </LinkColumns>
+                <WorkItemLinkFilters FilterType="includeAll" />
+                <ExternalLinkFilters FilterType="includeAll" />
+                <WorkItemTypeFilters FilterType="includeAll" />
+              </LinksControlOptions>
+            </Control>
+          </Tab>
+          <Tab Label="Attachments">
+            <Control Type="AttachmentsControl" LabelPosition="Top" />
+          </Tab>
+        </TabGroup>
+      </Layout>
+    </FORM>
+  </WORKITEMTYPE>
+</witd:WITD>

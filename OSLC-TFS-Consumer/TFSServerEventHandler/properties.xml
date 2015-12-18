@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+
+  <!-- ===========================================================
+  TFS OSLC provider information.
+  The TFS OSLC provider is a separate application that provide REST/OSLC access to TFS. The TFS Connector
+  needs to know some information about the provider, which is configured in this section.
+  -->
+  <!-- Link to a Bug that can be accessed using the TFS OSLC Provider -->
+  <tfsProviderUri>http://<TFS Adapter address>:9090/tfs/services/workitems/DefaultCollection/[id]</tfsProviderUri>
+
+  <!-- The functional user used by TFS OSLC Provider to write changes to Bugs -->
+  <tfsProviderUser>tfsuser1</tfsProviderUser>
+  
+  
+  <!-- ===========================================================
+  TFS OSLC Consumer information.
+  This application.
+  -->
+  
+  <!-- TFS Server and collection -->
+  <tfsUri>http://<TFS server address>:8080/tfs/defaultcollection</tfsUri>
+  
+  <!-- Credentials for the TFS user on which behalf changes are made by plugin -->
+  <user><TFS server address>\\tfsuser2</user>
+  <password>QWE12rty</password>  
+
+  <!-- Connection values for the MHWeb OSLC Provider -->
+  <clientUri>https://<Client address>:45843</clientUri>
+
+  <rootservicesUri>/oslc4j/rootservices</rootservicesUri>
+  <baseAccessUri>/oslc4j/services/mhweb/changeRequests/[id]</baseAccessUri>
+  
+  <!-- Friends i.e. access info for access to MHWeb OSLC Provider -->
+  <friends>
+    <friend name="mhweb" useAccess="basic">
+      <oauth>
+        <!-- Provided access values for OAuth -->
+        <consumerKey>c389a40575a31ed971aff5a4e65d6f392</consumerKey>
+        <consumerSecret>mhtest</consumerSecret>
+        <accessToken>c4509d5aae2d45d9a49b822e865918f5</accessToken>
+        <accessTokenSecret>944c85932b88840dae034320cc0ef78b</accessTokenSecret>
+      </oauth>
+      <basic>
+        <!--
+        Provide either Base64 encoded user and password for functional MHWeb user
+        or user and password in plaintext using the entries below.
+        -->
+        <!--
+        <encodedCredentials></encodedCredentials>
+        -->
+        <user>qnilkro</user>
+        <password>pwqnilkro</password>     
+      </basic>    
+    </friend>    
+  </friends>
+  
+  <!--
+  Additional header info passed in REST calls to MHWeb OSLC Provider.
+  The [tfs_user] tag will be replaced by the signum (e.g. qnilkro) of actual user in TFS who is
+  making a specific change. Should normally not be changed in the configuration.
+  -->
+  <headers>
+    <header key="extuser" value="[tfs_user]"/>
+    <header key="system_type" value="TFS"/>
+    <header key="system_id" value="MR-TFS-OSLC"/>
+  </headers>
+  
+  <!--
+  TFS Consumer logging:
+  For event logging to work you also need to define the Event Source by adding a registry key.
+  See http://msdn.microsoft.com/en-us/library/vstudio/system.diagnostics.eventlog(v=vs.110).aspx
+  Adding key in registry:
+  1. Start regedit on the TFS server machine - you need administrator rights 
+  2. Add entry HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\eventlog\Application\TFS EventHandler
+  3. Add String (expanded) entry with
+        key: EventMessageFile
+        value: C:\Windows\Microsoft.NET\Framework64\v4.0.30319\EventLogMessages.dll
+  The log entries will be avaliable in the Event Viewer under "Windows Logs - Application" given right
+  level (see below) is set. INFO and DEBUG are both mapped to Information level.
+  
+  For file logging - specify the directory and threshold for the logs.  
+  -->
+
+  <!-- Logging - levels: INFO, DEBUG, WARN, ERROR -->
+  <logToEventLog enabled="true" level="INFO"/>
+  <logToFile enabled="true" level="INFO" location=".\logs"/>
+  
+  
+  <!-- Mapping files between TFS Bug information and MHWeb TR information -->
+  <attributeMappingFile name=".\attribute_mapping.xml"/>
+  <customerMappingFile name=".\customer_mapping.xml"/>
+  <productMappingFile name=".\product_mapping.xml"/>
+
+  <!-- TFS Fields used in code where we need to map -->
+  <tfsFields>
+    <state key="System.State"/>
+    <subState key="Microsoft.VSTS.Common.SubState"/>
+    <owner key="System.AssignedTo"/>
+    <faultyProduct key="Microsoft.VSTS.Common.ReleaseFoundIn"/>
+    
+    <customersAffected key="Microsoft.VSTS.Common.CustomersAffected"/>
+    <duplicate key="Microsoft.VSTS.Common.DuplicateIDParent"/>
+    <duplicateValue key="Duplicate"/>
+    <history key="System.History"/>
+    <description key="System.Description"/>
+    
+    <trState key="Ericsson.Defect.State"/>
+    <trLink key="Ericsson.Defect.Link"/>
+    <trSyncState key="Ericsson.Defect.SyncState"/>
+    <trCreate key="Microsoft.VSTS.Common.CreateMhwebTR"/>
+
+    <trFirstTechnicalContact key="Ericsson.Defect.Creator.Signum"/>
+  </tfsFields>
+  
+  <!-- Success / Warning / Error messages for History field -->
+  <noSyncMessage>No sync will be done between Bug and TR as long as Bug is Duplicate.</noSyncMessage>
+  <successMessage></successMessage>
+  <warningMessage>The Bug fields that could not be updated might be reverted to old values.</warningMessage>
+  <errorMessage>To get back in sync you need to edit the connected TR.</errorMessage>
+
+</configuration>
